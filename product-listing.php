@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,7 +50,7 @@ session_start();
                   <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                   <div class="header__actions"><a href="login.php"><i class="bi bi-person"></i> <?php 
                   include 'connect_db.php';
-                  $sqlu="SELECT*FROM USERS WHERE id=".$_SESSION['idu'];
+                  $sqlu="SELECT*FROM USERS WHERE id=".$_COOKIE['idu'];
                   $kqu= mysqli_query($con,$sqlu);
                   while($row=mysqli_fetch_array($kqu)){
                     echo 'Xin chào '.$row['fullname'].',';
