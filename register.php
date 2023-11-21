@@ -23,14 +23,14 @@
 <?php
     
      if((isset($_POST['dangky']))&&($_POST['dangky'])){ 
-        $user= $_POST['username'];
+        $username= $_POST['username'];
         $pass= $_POST['password'];
         $checkpass= $_POST['checkpass'];
         $name= $_POST['fullname'];
         $email= $_POST['email'];
         $phone= $_POST['phone'];
         $address= $_POST['address'];
-        if($user=="Tên đăng nhập" || $pass=="password" || $name=="Họ tên" || $email=="Email" || $phone=="Số điện thoại" || $address=="Địa chỉ"){ ?>
+        if($username=="Tên đăng nhập" || $pass=="password" || $name=="Họ tên" || $email=="Email" || $phone=="Số điện thoại" || $address=="Địa chỉ"){ ?>
         
         <script>
             Swal.fire({
@@ -51,20 +51,24 @@
         </script>
 <?php
         }else{
-            $conn = mysqli_connect("localhost","root","","camping");
-            $sql="INSERT INTO users(role_id,username,password,fullname,email,phone,address) values(2,'$user','$pass','$name','$email','$phone','$address')";
-            $kq= mysqli_query($conn,$sql);
+            include 'connect_db.php';
+            $sql="INSERT INTO users(role_id,username,password,fullname,email,phone,address) values(2,'$username','$pass','$name','$email','$phone','$address')";
+            $kq= mysqli_query($con,$sql);
         ?>
         <script>
         Swal.fire({
-  title: "Bạn đã đăng ký tài khoản thành công",
-  text: "Vui lòng đăng nhập!",
-  icon: "success"
+  title: "Bạn đã đăng ký thành công!",
+  text: "Vui lòng chuyển đến trang chủ",
+  icon: "success",
+  confirmButtonColor: "#3085d6",
+  confirmButtonText: "Chuyển đến trang chủ!"
+}).then((result) => {
+    window.location="index.php";
 });
     </script>
         <?php
 
-        header("location: index.php");
+        
      }}
 ?>
 

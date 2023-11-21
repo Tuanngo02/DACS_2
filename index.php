@@ -1,7 +1,5 @@
+
 <!DOCTYPE html>
-<!--[if IE 7]><html class="ie ie7"><![endif]-->
-<!--[if IE 8]><html class="ie ie8"><![endif]-->
-<!--[if IE 9]><html class="ie ie9"><![endif]-->
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -57,10 +55,28 @@
                 <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
                   <p>254/K1 Trần Cao Vân, Thanh Khê, Đà Nẵng  -  Hotline: 804-377-3580 - 804-399-3580</p>
                 </div>
+                <?php if(isset($_COOKIE['user_cookie'])){ ?>
+                  <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
+                  <div class="header__actions"><a href=""><i class="bi bi-person"></i> <?php 
+                  include 'connect_db.php';
+                  $sql="SELECT*FROM USERS WHERE id=".$_COOKIE['idu'];
+                  $kq= mysqli_query($con,$sql);
+                  while($row=mysqli_fetch_array($kq)){
+                    echo 'Xin chào '.$row['fullname'].',';
+                  }
+                   ?> </a>
+                  <div class="header__actions"><a href="logout.php"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
+<?php
+    }else{
+                ?>
                 <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                   <div class="header__actions"><a href="login.php"><i class="bi bi-person"></i> Đăng nhập</a>
                   <div class="header__actions"><a href="register.php"><i class="bi bi-person-plus"></i> Đăng ký</a>
-                    <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-globe"></i>  Ngôn ngữ<i class="bi bi-angle-down"></i></a>
+
+                  <?php
+    }
+                  ?>
+                  <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-globe"></i>  Ngôn ngữ<i class="bi bi-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="#">English</a></li>
                         <li><a href="#">Tiếng Việt</a></li>
@@ -81,13 +97,24 @@
                   <li class="menu-item menu-item-has-children dropdown"><a href="index.php">Trang chủ</a>
                     
                   </li>
-                  <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">Danh Mục</a>
+                  <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">Địa điểm cắm trại</a>
                     
                   </li>
                   <li class="menu-item"><a href="product-listing.php">Sản phẩm</a></li>
-                  <li class="menu-item menu-item-has-children dropdown"><a href="#">Địa điểm cắm trại</a>
-              
-                  </li>
+                  <li class="menu-item menu-item-has-children dropdown"><a href="#">Danh mục</a>
+                  <ul class="sub-menu">
+                    <?php
+                    include 'connect_db.php';
+                    $sql="SELECT*FROM category";
+                    $kq=mysqli_query($con,$sql);
+                    while($row=mysqli_fetch_array($kq)){
+                    ?>
+                          <li class="menu-item menu-item-has-children dropdown"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php echo $row['name']; ?></a>
+                          </li>
+                          <?php
+                          }
+                          ?>
+                  </li></ul>
                   <li class="menu-item menu-item-has-children dropdown"><a href="#">Liên hệ</a>
                         
                   </li>

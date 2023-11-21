@@ -1,9 +1,9 @@
 <?php
 $host = "localhost";
-$user = "root";
-$password = "1111";
+$userdb = "root";
+$password = "";
 $database = "camping";
-$con = mysqli_connect($host, $user, $password, $database);
+$con = mysqli_connect($host, $userdb, $password, $database);
 if (mysqli_connect_errno()){
     echo "Connection Fail: ".mysqli_connect_errno();exit;
 }

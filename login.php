@@ -1,8 +1,31 @@
-<!--Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<?php
+    if((isset($_POST['dangnhap']))&&($_POST['dangnhap'])){
+		static $id;
+		$usernamelogin=$_POST['username'];
+		$passlogin=$_POST['password'];
+		include 'connect_db.php';
+    $sql ="SELECT* FROM users WHERE username='$usernamelogin' and password='$passlogin' ";
+    $kq = mysqli_query($con,$sql);
+    if(mysqli_num_rows($kq)>0){
+		setcookie("user_cookie", "$usernamelogin", time() + 3600, '/');
+		while ($row = mysqli_fetch_array($kq)){
+			$idu=$row['id'];
+			 setcookie("idu", "$idu", time() + 3600, '/');
+        header("location: index.php");
+		}
+    }else{
+        ?>
+    <script>
+            Swal.fire({
+  icon: "error",
+  title: "Lỗi!",
+  text: "Mật khẩu không chính xác!",
+});
+        </script>
+<?php 
+}
+	}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -23,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--header start here-->
 <div class="header">
 	
-		<div class="header-main">
+<div class="header-main">
 			<a href="index.php">
 			<img src="favicon.jpg" style="width: 150px; border-radius: 50%; margin-left:155px; margin-top:-70px;" alt="">
 		    </a>   
@@ -33,8 +56,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					
 					<div class="header-left-bottom agileinfo">
 						
-					 <form action="#" method="post">
-						<input type="text"  value="Tên đăng nhập" name="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}"/>
+					 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+						<input type="text"  value="Tên đăng nhập" name="username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'User name';}"/>
 					<input type="password"  value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"/>
 						<div class="remember">
 			             <span class="checkbox1">
@@ -46,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<div class="clear"> </div>
 					  </div>
 					   
-						<input type="submit" value="Đăng nhập">
+						<input type="submit" name="dangnhap" value="Đăng nhập">
 					</form>	
 					
 						

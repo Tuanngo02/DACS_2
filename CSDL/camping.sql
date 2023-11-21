@@ -16,9 +16,9 @@ CREATE TABLE `Users` (
   `created_time` int(11) NOT NULL,
   `last_updated` int(11) NOT NULL
 );
-INSERT INTO `Users` (`id`, `username`, `fullname`, `password`, `birthday`, `created_time`, `last_updated`) VALUES
-(1, 'admin', 'admin', '123', 1553185530, 1553185530, 1553185530),
-(3, 'writer', 'Tuấn', '123', 1553185530, 1553185530, 1553185530);
+-- INSERT INTO `Users` (`id`, `username`, `fullname`, `password`, `birthday`, `created_time`, `last_updated`) VALUES
+-- (1, 'admin', 'admin', '123', 1553185530, 1553185530, 1553185530),
+-- (3, 'writer', 'Tuấn', '123', 1553185530, 1553185530, 1553185530);
 
 CREATE TABLE `Category` (
   `id` int PRIMARY KEY  NOT NULL AUTO_INCREMENT,
@@ -41,8 +41,8 @@ CREATE TABLE `Products` (
   `created_time` int(11) NOT NULL,
   `last_updated` int(11) NOT NULL
 );
-INSERT INTO `Products` (`id`, `name`, `image`, `price`, `content`, `created_time`, `last_updated`) VALUES
-(2, 'GiÃ y bÃ³ng Ä‘Ã¡ 1', 'uploads/06-03-2019/shoes-1.jpg', 540000, 'GiÃ y bÃ³ng Ä‘Ã¡ 1 sÃ¢n cá» nhÃ¢n táº¡o', 1552615987, 1552615987);
+-- INSERT INTO `Products` (`id`, `name`, `image`, `price`, `content`, `created_time`, `last_updated`) VALUES
+-- (2, 'GiÃ y bÃ³ng Ä‘Ã¡ 1', 'uploads/06-03-2019/shoes-1.jpg', 540000, 'GiÃ y bÃ³ng Ä‘Ã¡ 1 sÃ¢n cá» nhÃ¢n táº¡o', 1552615987, 1552615987);
 CREATE TABLE `Galery` (
   `id` int PRIMARY KEY  NOT NULL AUTO_INCREMENT,
   `product_id` int,
