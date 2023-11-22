@@ -48,7 +48,7 @@
                 </div>
                 <?php if(isset($_COOKIE['user_cookie'])){ ?>
                   <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-                  <div class="header__actions"><a href="login.php"><i class="bi bi-person"></i> <?php 
+                  <div class="header__actions"><a href=""><i class="bi bi-person"></i> <?php 
                   include 'connect_db.php';
                   $sqlu="SELECT*FROM USERS WHERE id=".$_COOKIE['idu'];
                   $kqu= mysqli_query($con,$sqlu);
@@ -166,7 +166,7 @@
               <div class="ps-shoe mb-30">
                 <div class="ps-shoe__thumbnail">
                   <div class="ps-badge"><span>New</span></div>
-                  <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="images/products/<?php echo $row['id']; ?>/1.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
+                  <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="images/products/<?php echo $row['id']; ?>/1.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.php?idsp=<?php echo $idsp; ?>"></a>
                 </div>
                 <div class="ps-shoe__content">
                   <div class="ps-shoe__variants">
@@ -187,7 +187,7 @@
                       <option value="2">5</option>
                     </select>
                   </div>
-                  <div class="ps-shoe__detail"><a class="ps-shoe__name" href="#"><?php echo $row['name']; ?></a>
+                  <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
                     <p class="ps-shoe__categories"> <?php echo 'Lều'; ?></p><span class="ps-shoe__price">
                       <del style="font-size:15px;margin-top:15px;"></del> <?php echo '<br>'.$row['price'].' VND'; ?></span>
                   </div>
