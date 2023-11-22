@@ -9,10 +9,10 @@ if (!empty($_SESSION['current_user'])) {
             $error = false;
             if (isset($_GET['id']) && !empty($_GET['id'])) {
                 include '../connect_db.php';
-                $menu = mysqli_query($con, "SELECT * FROM `menu` ORDER BY `menu`.`position` ASC");
-                $menuList = mysqli_fetch_all($menu, MYSQLI_ASSOC);
-                deleteChildrenMenu($_GET['id'],$menuList,$con);
-                $result = mysqli_query($con, "DELETE FROM `menu` WHERE `id` = " . $_GET['id']);
+                // $menu = mysqli_query($con, "SELECT * FROM `menu` ORDER BY `menu`.`position` ASC");
+                // $menuList = mysqli_fetch_all($menu, MYSQLI_ASSOC);
+                // deleteChildrenMenu($_GET['id'],$menuList,$con);
+                $result = mysqli_query($con, "DELETE FROM `category` WHERE `id` = " . $_GET['id']);
                 if (!$result) {
                     $error = "Không thể xóa danh mục.";
                 }

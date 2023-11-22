@@ -12,14 +12,15 @@ if (!empty($_SESSION['current_user'])) {
                         $error = "Bạn phải nhập tên danh mục";
                     } elseif (empty($_POST['link'])) {
                         $error = "Bạn phải nhập link danh mục";
-                    } elseif (empty($_POST['position'])) {
-                        $error = "Bạn phải nhập thứ tự danh mục";
                     } 
+                    // elseif (empty($_POST['position'])) {
+                    //     $error = "Bạn phải nhập thứ tự danh mục";
+                    // } 
                     if (!isset($error)) {
                         if ($_GET['action'] == 'edit' && !empty($_GET['id'])) { //Cập nhật lại danh mục                            
-                            $result = mysqli_query($con, "UPDATE `menu` SET `name` = '".$_POST['name']."', `link` = '".$_POST['link']."', `parent_id` = '".$_POST['parent_id']."', `position` = '".$_POST['position']."', `last_updated` = '".time()."' WHERE `menu`.`id` = ".$_GET['id'].";");
+                            $result = mysqli_query($con, "UPDATE `category` SET `name` = '".$_POST['name']."', `link` = '".$_POST['link']."',`last_updated` = '".time()."' WHERE `category`.`id` = ".$_GET['id'].";");
                         } else { //Thêm danh mục
-                            $result = mysqli_query($con, "INSERT INTO `menu` (`id`, `parent_id`, `name`, `link`, `position`, `created_time`, `last_updated`) VALUES (NULL, '".$_POST['parent_id']."', '".$_POST['name']."', '".$_POST['link']."', '".$_POST['position']."', ".time().", ".time().");");
+                            $result = mysqli_query($con, "INSERT INTO `category` (`id`,`name`, `link`,`created_time`, `last_updated`) VALUES (NULL,'".$_POST['name']."', '".$_POST['link']."',".time().", ".time().");");
                         }
                         if (!$result) { //Nếu có lỗi xảy ra
                             $error = "Có lỗi xảy ra trong quá trình thực hiện.";
@@ -35,12 +36,12 @@ if (!empty($_SESSION['current_user'])) {
                 </div>
                 <?php
             } else {
-                $result = mysqli_query($con, "SELECT * FROM `menu` ORDER BY `menu`.`position` ASC");
+                $result = mysqli_query($con, "SELECT * FROM `category`");
                 $menuList = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                $menuTree = createMenuTree($menuList, 0);
+                //$menuTree = createMenuTree($menuList, 0);
                 //Sửa danh mục
                 if (!empty($_GET['id'])) {
-                    $result = mysqli_query($con, "SELECT * FROM `menu` WHERE `id` = " . $_GET['id']);
+                    $result = mysqli_query($con, "SELECT * FROM `category` WHERE `id` = " . $_GET['id']);
                     $currentMenu = $result->fetch_assoc();
                 }
                 ?>
@@ -53,25 +54,8 @@ if (!empty($_SESSION['current_user'])) {
                         <div class="clear-both"></div>
                     </div>
                     <div class="wrap-field">
-                        <label>Danh mục cha: </label>
-                        <select name="parent_id">
-                            <option value="">Lựa chọn</option>
-                            <?php
-                            if (!empty($menuTree)) {
-                                showMenuSelectBox($menuTree, 0, $currentMenu['parent_id']);
-                            }
-                            ?>
-                        </select>
-                        <div class="clear-both"></div>
-                    </div>
-                    <div class="wrap-field">
                         <label>Link: </label>
                         <input type="text" name="link" value="<?= (!empty($currentMenu) ? $currentMenu['link'] : "") ?>" />
-                        <div class="clear-both"></div>
-                    </div>
-                    <div class="wrap-field">
-                        <label>Thứ tự: </label>
-                        <input type="text" name="position" value="<?= (!empty($currentMenu) ? $currentMenu['position'] : "") ?>" />
                         <div class="clear-both"></div>
                     </div>
                 </form>
