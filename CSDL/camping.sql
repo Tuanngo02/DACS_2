@@ -7,16 +7,7 @@
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
+use camping;
 --
 -- Database: `camping`
 --
@@ -64,8 +55,9 @@ CREATE TABLE `comment` (
 
 CREATE TABLE `image_library` (
   `id` int(11) NOT NULL,
+	`path` varchar(255) NULL,
   `product_id` int(11) NOT NULL,
-  `thumbails` varchar(255) NOT NULL,
+  `thumbails` varchar(255) NULL,
   `created_time` int(11) NOT NULL,
   `last_updated` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -126,6 +118,7 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `name` varchar(350) DEFAULT NULL,
+    `image` varchar(255) DEFAULT NULL,
   `image_path` varchar(255) DEFAULT NULL,
   `price` float NOT NULL,
   `content` text NOT NULL,

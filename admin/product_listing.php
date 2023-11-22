@@ -80,7 +80,7 @@ if (!empty($_SESSION['current_user'])) {
                 while ($row = mysqli_fetch_array($products)) {
                     ?>
                     <li>
-                        <div class="listing-prop listing-img"><img src="../<?= $row['image'] ?>" alt="<?= $row['name'] ?>" title="<?= $row['name'] ?>" /></div>
+                        <div class="listing-prop listing-img"><img src="../<?php $row['image'] ?>" alt="<?= $row['name'] ?>" title="<?= $row['name'] ?>" /></div>
                         <div class="listing-prop listing-name"><?= $row['name'] ?></div>
                         <div class="listing-prop listing-button">
                             <a href="./<?=$config_name?>_delete.php?id=<?= $row['id'] ?>">Xóa</a>

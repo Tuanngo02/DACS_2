@@ -42,9 +42,9 @@ if (!empty($_SESSION['current_user'])) {
                     }
                     if (!isset($error)) {
                         if ($_GET['action'] == 'edit' && !empty($_GET['id'])) { //Cập nhật lại sản phẩm
-                            $result = mysqli_query($con, "UPDATE `Products` SET `name` = '" . $_POST['name'] . "',`image` =  '" . $image . "', `price` = " . str_replace('.', '', $_POST['price']) . ", `content` = '" . $_POST['content'] . "', `last_updated` = " . time() . " WHERE `Products`.`id` = " . $_GET['id']);
+                            $result = mysqli_query($con, "UPDATE `Products` SET `name` = '" . $_POST['name'] . "',`image` =  '" . $image . "',`category_id` =  '" . $_POST['iddanhmuc'] . "', `price` = " . str_replace('.', '', $_POST['price']) . ", `content` = '" . $_POST['content'] . "', `last_updated` = " . time() . " WHERE `Products`.`id` = " . $_GET['id']);
                         } else { //Thêm sản phẩm
-                            $result = mysqli_query($con, "INSERT INTO `Products` (`id`, `name`, `image`, `price`, `content`, `created_time`, `last_updated`) VALUES (NULL, '" . $_POST['name'] . "','" . $image . "', " . str_replace('.', '', $_POST['price']) . ", '" . $_POST['content'] . "', " . time() . ", " . time() . ");");
+                            $result = mysqli_query($con, "INSERT INTO `Products` (`id`, `name`, `category_id`,`image`, `price`, `content`, `created_time`, `last_updated`) VALUES (NULL, '" . $_POST['name'] . "','" . $_POST['iddanhmuc'] . "','" . $image . "', " . str_replace('.', '', $_POST['price']) . ", '" . $_POST['content'] . "', " . time() . ", " . time() . ");");
                         }
                         if (!$result) { //Nếu có lỗi xảy ra
                             $error = "Có lỗi xảy ra trong quá trình thực hiện.";
@@ -105,7 +105,7 @@ if (!empty($_SESSION['current_user'])) {
                         <div class="right-wrap-field">
         <?php if (!empty($product['image'])) { ?>
                                 <img src="../<?= $product['image'] ?>" /><br/>
-                                <input type="hidden" name="image" value="<?= $product['image'] ?>" />
+                                <input multiple type="hidden" name="image" value="<?= $product['image'] ?>" />
         <?php } ?>
                             <input type="file" name="image" />
                         </div>
@@ -119,7 +119,7 @@ if (!empty($_SESSION['current_user'])) {
             <?php foreach ($product['gallery'] as $image) { ?>
                                         <li>
                                             <img src="../<?= $image['path'] ?>" />
-                                            <a href="gallery_delete?id=<?= $image['id'] ?>">Xóa</a>
+                                            <a href="gallery_delete.php?id=<?= $image['id'] ?>">Xóa</a>
                                         </li>
                                 <?php } ?>
                                 </ul>
@@ -132,6 +132,15 @@ if (!empty($_SESSION['current_user'])) {
                             <input multiple="" type="file" name="gallery[]" />
                         </div>
                         <div class="clear-both"></div>
+                    </div>
+                    <div class="wrap-field">
+                    <select name="iddanhmuc" id="">
+        <?php
+            $kq = mysqli_query($con, "SELECT * FROM `category`");
+            while($row = mysqli_fetch_array($kq)){
+                echo '<option value = "' . $row['id'].'">'.$row['name'].'</option>';
+            }
+        ?>
                     </div>
                     <div class="wrap-field">
                         <label>Nội dung: </label>
