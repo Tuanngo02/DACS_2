@@ -308,7 +308,7 @@ ALTER TABLE `comment`
 -- Constraints for table `image_library`
 --
 ALTER TABLE `image_library`
-  ADD CONSTRAINT `image_library_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `image_library_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `oders`

@@ -24,24 +24,8 @@ if (!empty($_SESSION['current_user'])) {
         }
         extract($_SESSION[$config_name . '_filter']);
     }
-    if (!empty($where)) {
-        $currentMenu = mysqli_query($con, "SELECT * FROM `menu`  where (" . $where . ")");
-        $currentMenu = mysqli_fetch_assoc($currentMenu);
-        if (!empty($currentMenu)) {
-            $menuList = mysqli_query($con, "SELECT * FROM `menu` ORDER BY `menu`.`position` ASC"); //Lấy tất cả các menu
-            $menuList = mysqli_fetch_all($menuList, MYSQLI_ASSOC);
-            $childrenMenu = createMenuTree($menuList, $currentMenu['id']); //Lấy các Menu con của Current Menu ID
-            if (!empty($childrenMenu)) {
-                $currentMenu['children'] = $childrenMenu;
-            }
-            $menuTree = array(
-                $currentMenu
-            );
-        }
-    } else {
-        $menu = mysqli_query($con, "SELECT * FROM `menu` ORDER BY `menu`.`position` ASC");
-        $menuList = mysqli_fetch_all($menu, MYSQLI_ASSOC);
-        $menuTree = createMenuTree($menuList, 0); //Lấy các Menu con của Parent ID = 0;
+    if (!empty($where)) {}else{
+        $danhmuc = mysqli_query($con, "SELECT * FROM `category`");
     }
     mysqli_close($con);
     ?>
@@ -63,24 +47,39 @@ if (!empty($_SESSION['current_user'])) {
             <ul id="<?= $config_name ?>-list">
                 <li class="listing-item-heading">
                     <div class="listing-prop listing-name"  style="width:301px;">Tên <?= $config_title ?></div>
-                    <div class="listing-prop listing-button">
-                        Xóa
-                    </div>
+                    <!-- <div class="listing-prop"  style="width:30px;">Link</div> -->
                     <div class="listing-prop listing-button">
                         Sửa
                     </div>
                     <div class="listing-prop listing-button">
                         Copy
                     </div>
+                    <div class="listing-prop listing-button">
+                        Xóa
+                    </div>
                     <div class="listing-prop listing-time">Ngày tạo</div>
                     <div class="listing-prop listing-time">Ngày cập nhật</div>
                     <div class="clear-both"></div>
                 </li>
                 <?php
-                if (!empty($menuTree)) {
-                    showMenuTree($menuTree, 0, $config_name);
-                }
-                ?>
+                while ($row = mysqli_fetch_array($danhmuc)) {
+                    ?>
+                    <li>
+                        <div class="listing-prop listing-name"><?= $row['name'] ?></div>
+                        <div class="listing-prop listing-button">
+                            <a href="./<?=$config_name?>_delete.php?id=<?= $row['id'] ?>">Xóa</a>
+                        </div>
+                        <div class="listing-prop listing-button">
+                            <a href="./<?=$config_name?>_editing.php?id=<?= $row['id'] ?>">Sửa</a>
+                        </div>
+                        <div class="listing-prop listing-button">
+                            <a href="./<?=$config_name?>_editing.php?id=<?= $row['id'] ?>&task=copy">Copy</a>
+                        </div>
+                        <div class="listing-prop listing-time"><?= date('d/m/Y H:i', $row['created_time']) ?></div>
+                        <div class="listing-prop listing-time"><?= date('d/m/Y H:i', $row['last_updated']) ?></div>
+                        <div class="clear-both"></div>
+                    </li>
+                <?php } ?>
             </ul>
             <div class="clear-both"></div>
         </div>
