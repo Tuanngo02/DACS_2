@@ -162,11 +162,9 @@
                   <a class="popup-youtube ps-product__video" href="http://www.youtube.com/watch?v=0O2aH4XLbto"><img src="images/shoe-detail/1.jpg" alt=""><i class="fa fa-play"></i></a>
                 </div>
                 <div class="ps-product__image">
-                  <div class="item"><img class="zoom" src="images/products/1/1.jpg" alt="" data-zoom-image="images/products/1/1.jpg"></div>
-                  <div class="item"><img class="zoom" src="images/products/1/2.jpg" alt="" data-zoom-image="images/products/1/2.jpg"></div>
+                  <?php  ?>
                   <div class="item"><img class="zoom" src="images/products/1/3.jpg" alt="" data-zoom-image="images/products/1/3.jpg"></div>
-                  <div class="item"><img class="zoom" src="images/products/1/4.jpg" alt="" data-zoom-image="images/products/1/4.jpg"></div>
-                  <div class="item"><img class="zoom" src="images/products/1/5.png" alt="" data-zoom-image="images/products/1/5.png"></div>
+                  
                 </div>
               </div>
               <div class="ps-product__thumbnail--mobile">
