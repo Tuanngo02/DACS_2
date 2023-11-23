@@ -72,7 +72,7 @@
                     $kqimg_detail= mysqli_query($con,$sqlimg_detail);
                     while($rowimg_detail=mysqli_fetch_array($kqimg_detail)):
                     ?>
-                    <div class="item"><img src="images/products/<?php echo $_GET['idsp'] ?>/<?php echo $rowimg_detail['thumbails']; ?>" alt=""></div>
+                    <div class="item"><img src="../<?= $rowimg_detail['path'] ?>" alt=""></div>
                     <?php endwhile ?>
                   </div>
                   <a class="popup-youtube ps-product__video" href="http://www.youtube.com/watch?v=0O2aH4XLbto"><img src="images/shoe-detail/1.jpg" alt=""><i class="fa fa-play"></i></a>
@@ -83,18 +83,19 @@
                   $kqimg_detail1= mysqli_query($con,$sqlimg_detail1);
                   while($rowimg_detail1=mysqli_fetch_array($kqimg_detail1)):
                   ?>
-                  <div class="item"><img class="zoom" src="images/products/<?php echo $_GET['idsp']; ?>/<?php echo $rowimg_detail1['thumbails']; ?>" alt="" data-zoom-image="images/products/<?php echo $_GET['idsp']; ?>/<?php echo $rowimg_detail1['thumbails']; ?>"></div>
+                  <div class="item"><img class="zoom" src="../<?= $rowimg_detail1['path'] ?>" alt="" data-zoom-image="../<?= $rowimg_detail1['path'] ?>"></div>
                   <?php endwhile ?> 
                 </div>
               </div>
+              <!-- hiển thị trên moblie -->
               <div class="ps-product__thumbnail--mobile">
-                <div class="ps-product__main-img"><img src="images/products/<?php echo $_GET['idsp']; ?>/1.jpg" alt=""></div>
+                <div class="ps-product__main-img"><img src="../<?= $rowimg_detail1['path'] ?>" alt=""></div>
                 <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false" data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on">
                 <?php 
                 $sqlimg_detail2="SELECT*FROM image_library WHERE product_id=".$_GET['idsp'];
                   $kqimg_detail2= mysqli_query($con,$sqlimg_detail2);
                   while($rowimg_detail2=mysqli_fetch_array($kqimg_detail2)): ?>  
-                <img src="images/products/<?php echo $_GET['idsp']; ?>/<?php echo $rowimg_detail2['thumbails']; ?>" alt="">
+                <img src="../<?= $rowimg_detail2['path'] ?>" alt="">
                   <?php endwhile ?>
                 </div>
               </div>

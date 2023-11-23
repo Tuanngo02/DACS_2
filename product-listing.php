@@ -82,7 +82,7 @@
               <div class="ps-shoe mb-30">
                 <div class="ps-shoe__thumbnail">
                   <div class="ps-badge"><span>New</span></div>
-                  <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="images/products/<?php echo $row['id']; ?>/1.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.php?idsp=<?php echo $idsp; ?>"></a>
+                  <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="../<?= $row['image'] ?>" alt=""><a class="ps-shoe__overlay" href="product-detail.php?idsp=<?php echo $idsp; ?>"></a>
                 </div>
                 <div class="ps-shoe__content">
                   <div class="ps-shoe__variants">
@@ -92,7 +92,7 @@
                       $kqimg=mysqli_query($con,$sqlimg); 
                       while($row_img=mysqli_fetch_array($kqimg)):
                       ?>
-                      <img src="images/products/<?php echo $row['id'].'/'.$row_img['thumbails']; ?>" alt="">
+                      <img src="../<?= $row_img['path'] ?>" alt="">
                       <?php endwhile ?>
                     </div>
                     <select class="ps-rating ps-shoe__rating">
