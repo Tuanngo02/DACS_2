@@ -11,6 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css1/admin_style.css" >
         <script src="../resources/ckeditor/ckeditor.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
     <body>
         <?php
@@ -25,9 +26,9 @@ and open the template in the editor.
                         Xin chào <span>Admin</span>
                     </div>
                     <div class="right-panel">
-                        <img height="24" src="../images/home.png" />
+                        <img height="24" src="../favicon.jpg" />
                         <a href="../index.php">Trang chủ</a>
-                        <img height="24" src="../images/logout.png" />
+                        <i class="bi bi-box-arrow-right"></i>
                         <a href="logout.php">Đăng xuất</a>
                     </div>
                 </div>

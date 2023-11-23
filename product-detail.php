@@ -122,16 +122,20 @@
                   <h4>MÔ TẢ</h4>
                   <p><?php echo $row_product['content'];} ?></p>
                 </div>
-                <div class="ps-product__block ps-product__style">
-                  <h4>CHOOSE YOUR STYLE</h4>
-                  <ul>
-                    <li><a href="product-detail.html"><img src="images/shoe/sidebar/1.jpg" alt=""></a></li>
-                    <li><a href="product-detail.html"><img src="images/shoe/sidebar/2.jpg" alt=""></a></li>
-                    <li><a href="product-detail.html"><img src="images/shoe/sidebar/3.jpg" alt=""></a></li>
-                    <li><a href="product-detail.html"><img src="images/shoe/sidebar/2.jpg" alt=""></a></li>
-                  </ul>
+                <div class="ps-product__block ps-product__size">
+                  <h4>SỐ NGÀY THUÊ</h4>
+                  <select class="ps-select selectpicker">
+                    <option value="0">CHỌN SỐ NGÀY</option>
+                    <option value="1">1 ngày</option>
+                    <option value="2">2 ngày</option>
+                    <option value="3">3 ngày</option>
+                    <option value="4">4 ngày</option>
+                    <option value="5">5 ngày</option>
+                    <option value="6">6 ngày</option>
+                    <option value="7">7 ngày</option>
+                  </select>
+                  
                 </div>
-                
                 <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a>
                   <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
                 </div>
