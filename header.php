@@ -9,9 +9,9 @@
                   <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                   <div class="header__actions"><a href=""><i class="bi bi-person"></i> <?php 
                   include 'connect_db.php';
-                  $sql="SELECT*FROM USERS WHERE id=".$_COOKIE['idu'];
-                  $kq= mysqli_query($con,$sql);
-                  while($row=mysqli_fetch_array($kq)){
+                  $sqlu="SELECT*FROM USERS WHERE id=".$_COOKIE['idu'];
+                  $kqu= mysqli_query($con,$sqlu);
+                  while($row=mysqli_fetch_array($kqu)){
                     echo 'Xin chào '.$row['fullname'].',';
                   }
                    ?> </a>
@@ -25,8 +25,7 @@
 
                   <?php
     }
-                  ?>
-                  <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-globe"></i>  Ngôn ngữ<i class="bi bi-angle-down"></i></a>
+                  ?><div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-globe"></i>  Ngôn ngữ<i class="fa fa-angle-down"></i></a>
                       <ul class="dropdown-menu">
                         <li><a href="#">English</a></li>
                         <li><a href="#">Tiếng Việt</a></li>
@@ -55,9 +54,9 @@
                   <ul class="sub-menu">
                     <?php
                     include 'connect_db.php';
-                    $sql="SELECT*FROM category";
-                    $kq=mysqli_query($con,$sql);
-                    while($row=mysqli_fetch_array($kq)){
+                    $sqldm="SELECT*FROM category";
+                    $kqdm=mysqli_query($con,$sqldm);
+                    while($row=mysqli_fetch_array($kqdm)){
                     ?>
                           <li class="menu-item menu-item-has-children dropdown"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php echo $row['name']; ?></a>
                           </li>
