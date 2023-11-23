@@ -73,13 +73,14 @@
           <div class="ps-product__columns">
             <?php
             include 'connect_db.php';
-            $category_id = $_GET['iddm'];
-            $sqlsp="SELECT*FROM products WHERE category_id = $category_id";
-            $kqsp= mysqli_query($con,$sqlsp);
-            while($row=mysqli_fetch_array($kqsp)){
-              $idsp=$row['id'];
-            ?>
-            <div class="ps-product__column">
+            if (isset($_GET['iddm'])) {
+              $category_id = $_GET['iddm'];
+              $sqlsp="SELECT*FROM products WHERE category_id = $category_id";
+              $kqsp= mysqli_query($con,$sqlsp);
+              while($row=mysqli_fetch_array($kqsp)){
+                $idsp=$row['id'];
+              ?>
+              <div class="ps-product__column">
               <div class="ps-shoe mb-30">
                 <div class="ps-shoe__thumbnail">
                   <div class="ps-badge"><span>New</span></div>
@@ -111,30 +112,53 @@
                 </div>
               </div>
             </div>
-           <?php }
-           ?>
-            
-            
-            
-            
-            
-            
-            
+              <?php
+            }?>
             
            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+           <?php }else{
+            $sqlsp="SELECT*FROM products";
+            $kqsp= mysqli_query($con,$sqlsp);
+            while($row=mysqli_fetch_array($kqsp)){
+              $idsp=$row['id'];
+            ?>
+            <div class="ps-product__column">
+            <div class="ps-shoe mb-30">
+              <div class="ps-shoe__thumbnail">
+                <div class="ps-badge"><span>New</span></div>
+                <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="../<?= $row['image'] ?>" alt=""><a class="ps-shoe__overlay" href="product-detail.php?idsp=<?php echo $idsp; ?>"></a>
+              </div>
+              <div class="ps-shoe__content">
+                <div class="ps-shoe__variants">
+                  <div class="ps-shoe__variant normal">
+                    <?php
+                    $sqlimg="SELECT*FROM image_library WHERE product_id=".$idsp;
+                    $kqimg=mysqli_query($con,$sqlimg); 
+                    while($row_img=mysqli_fetch_array($kqimg)):
+                    ?>
+                    <img src="../<?= $row_img['path'] ?>" alt="">
+                    <?php endwhile ?>
+                  </div>
+                  <select class="ps-rating ps-shoe__rating">
+                    <option value="1">1</option>
+                    <option value="1">2</option>
+                    <option value="1">3</option>
+                    <option value="1">4</option>
+                    <option value="2">5</option>
+                  </select>
+                </div>
+                <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
+                  <p class="ps-shoe__categories"> <?php echo 'Lều'?></p><span class="ps-shoe__price">
+                    <del style="font-size:15px;margin-top:15px;"></del> <?php echo '<br>'.$row['price'].' VND'; ?></span>
+                </div>
+              </div>
+            </div>
+          </div>
+            <?php
+          }?>
+          <?php
+           }
+           ?>
           </div>
           <div class="ps-product-action">
             <div class="ps-product__filter">
