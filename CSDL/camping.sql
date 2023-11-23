@@ -20,19 +20,22 @@ use camping;
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL
+  `name` varchar(100) DEFAULT NULL,
+  `link` varchar(255) NULL,
+  `created_time` int(11) NOT NULL,
+  `last_updated` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Lều'),
-(2, 'Vật dụng'),
-(3, 'Thức ăn'),
-(4, 'Đồ uống'),
-(5, 'Nội thất');
+INSERT INTO `category` (`id`, `name`,`created_time`,`last_updated`) VALUES
+(1, 'Lều',519211123, 519211123),
+(2, 'Vật dụng',519211123, 519211123),
+(3, 'Thức ăn',519211123, 519211123),
+(4, 'Đồ uống',519211123, 519211123),
+(5, 'Nội thất',519211123, 519211123);
 
 -- --------------------------------------------------------
 
