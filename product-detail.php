@@ -162,14 +162,25 @@
                   <a class="popup-youtube ps-product__video" href="http://www.youtube.com/watch?v=0O2aH4XLbto"><img src="images/shoe-detail/1.jpg" alt=""><i class="fa fa-play"></i></a>
                 </div>
                 <div class="ps-product__image">
-                  <?php  ?>
-                  <div class="item"><img class="zoom" src="images/products/1/3.jpg" alt="" data-zoom-image="images/products/1/3.jpg"></div>
-                  
+                  <?php 
+                  $sqlimg_detail1="SELECT*FROM image_library WHERE product_id=".$_GET['idsp'];
+                  $kqimg_detail1= mysqli_query($con,$sqlimg_detail1);
+                  while($rowimg_detail1=mysqli_fetch_array($kqimg_detail1)):
+                  ?>
+                  <div class="item"><img class="zoom" src="images/products/<?php echo $_GET['idsp']; ?>/<?php echo $rowimg_detail1['thumbails']; ?>" alt="" data-zoom-image="images/products/<?php echo $_GET['idsp']; ?>/<?php echo $rowimg_detail1['thumbails']; ?>"></div>
+                  <?php endwhile ?> 
                 </div>
               </div>
               <div class="ps-product__thumbnail--mobile">
-                <div class="ps-product__main-img"><img src="images/products/1/1.jpg" alt=""></div>
-                <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false" data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on"><img src="images/shoe-detail/1.jpg" alt=""><img src="images/shoe-detail/2.jpg" alt=""><img src="images/shoe-detail/3.jpg" alt=""></div>
+                <div class="ps-product__main-img"><img src="images/products/<?php echo $_GET['idsp']; ?>/1.jpg" alt=""></div>
+                <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false" data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on">
+                <?php 
+                $sqlimg_detail2="SELECT*FROM image_library WHERE product_id=".$_GET['idsp'];
+                  $kqimg_detail2= mysqli_query($con,$sqlimg_detail2);
+                  while($rowimg_detail2=mysqli_fetch_array($kqimg_detail2)): ?>  
+                <img src="images/products/<?php echo $_GET['idsp']; ?>/<?php echo $rowimg_detail2['thumbails']; ?>" alt="">
+                  <?php endwhile ?>
+                </div>
               </div>
               <div class="ps-product__info">
                 <div class="ps-product__rating">
@@ -181,12 +192,18 @@
                     <option value="2">5</option>
                   </select><a href="#">(Read all 8 reviews)</a>
                 </div>
-                <h1>Air strong  training</h1>
-                <p class="ps-product__category"><a href="#"> Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p>
-                <h3 class="ps-product__price">£ 115 <del>£ 330</del></h3>
+
+                <?php 
+                $sql_product="SELECT*FROM products WHERE id=".$_GET['idsp'];
+                $kq_product= mysqli_query($con,$sql_product);
+                while($row_product=mysqli_fetch_array($kq_product)){
+                 ?>
+                <h1><?php echo $row_product['name']; ?></h1>
+                <p class="ps-product__category"><a href="#"> Lều</a></p>
+                <h3 class="ps-product__price"><?php echo $row_product['price'].' VND';  ?> <del> <!--£ 330 --> </del></h3>
                 <div class="ps-product__block ps-product__quickview">
-                  <h4>QUICK REVIEW</h4>
-                  <p>The Nike Free RN 2017 Men's Running Sky weighs less than previous versions and features an updated knit material…</p>
+                  <h4>MÔ TẢ</h4>
+                  <p><?php echo $row_product['content'];} ?></p>
                 </div>
                 <div class="ps-product__block ps-product__style">
                   <h4>CHOOSE YOUR STYLE</h4>
@@ -197,28 +214,8 @@
                     <li><a href="product-detail.html"><img src="images/shoe/sidebar/2.jpg" alt=""></a></li>
                   </ul>
                 </div>
-                <div class="ps-product__block ps-product__size">
-                  <h4>CHOOSE SIZE<a href="#">Size chart</a></h4>
-                  <select class="ps-select selectpicker">
-                    <option value="1">Select Size</option>
-                    <option value="2">4</option>
-                    <option value="3">4.5</option>
-                    <option value="3">5</option>
-                    <option value="3">6</option>
-                    <option value="3">6.5</option>
-                    <option value="3">7</option>
-                    <option value="3">7.5</option>
-                    <option value="3">8</option>
-                    <option value="3">8.5</option>
-                    <option value="3">9</option>
-                    <option value="3">9.5</option>
-                    <option value="3">10</option>
-                  </select>
-                  <div class="form-group">
-                    <input class="form-control" type="number" value="1">
-                  </div>
-                </div>
-                <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.html">Add to cart<i class="ps-icon-next"></i></a>
+                
+                <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a>
                   <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
                 </div>
               </div>
