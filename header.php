@@ -74,7 +74,7 @@
               <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
               <button><i class="ps-icon-search"></i></button>
             </form>
-            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.html"><span><i>20</i></span><i class="ps-icon-shopping-cart"></i></a>
+            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i>20</i></span><i class="ps-icon-shopping-cart"></i></a>
             
               </div>
             </div>
