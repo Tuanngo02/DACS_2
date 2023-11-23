@@ -73,7 +73,8 @@
           <div class="ps-product__columns">
             <?php
             include 'connect_db.php';
-            $sqlsp="SELECT*FROM products";
+            $category_id = $_GET['iddm'];
+            $sqlsp="SELECT*FROM products WHERE category_id = $category_id";
             $kqsp= mysqli_query($con,$sqlsp);
             while($row=mysqli_fetch_array($kqsp)){
               $idsp=$row['id'];
@@ -104,7 +105,7 @@
                     </select>
                   </div>
                   <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
-                    <p class="ps-shoe__categories"> <?php echo 'Lều'; ?></p><span class="ps-shoe__price">
+                    <p class="ps-shoe__categories"> <?php echo 'Lều'?></p><span class="ps-shoe__price">
                       <del style="font-size:15px;margin-top:15px;"></del> <?php echo '<br>'.$row['price'].' VND'; ?></span>
                   </div>
                 </div>
