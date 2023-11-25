@@ -37,6 +37,44 @@
   <!--[if IE 7]><body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
   <!--[if IE 8]><body class="ie8 lt-ie9 lt-ie10"><![endif]-->
   <!--[if IE 9]><body class="ie9 lt-ie10"><![endif]-->
+  <?php 
+   include 'connect_db.php';
+   if (isset($_GET['iddm'])) {
+      $_SESSION['category_id'] = $_GET['iddm'];
+   }
+   if(!empty($_SESSION['category_id'])){
+        $where = "";
+        $where .= (!empty($where))? " AND "."`category_id` = ".$_SESSION['category_id']."": "`category_id` = ".$_SESSION['category_id']."";
+       // extract($_SESSION['category_id']);
+      }
+    $param = "";
+    $orderConditon = "";
+    //Sắp xếp
+    $_SESSION['orderField'] = isset($_GET['field']) ? $_GET['field'] : "";
+    $_SESSION['orderSort'] = isset($_GET['sort']) ? $_GET['sort'] : "";
+    if(!empty($_SESSION['orderField'])
+        && !empty($_SESSION['orderSort'])){
+        $orderConditon = "ORDER BY `products`.`".$_SESSION['orderField']."` ".$_SESSION['orderSort'];
+        $param .= "field=".$_SESSION['orderField']."&sort=".$_SESSION['orderSort']."&";
+    }
+
+   $item_per_page = !empty($_GET['per_page'])?$_GET['per_page']:8;//hiển thị bao nhiêu sản phẩm trên 1 trang
+   $current_page = !empty($_GET['page'])?$_GET['page']:1; //Trang hiện tại
+   $offset = ($current_page - 1) * $item_per_page;//bắt đầu từ sản phẩm thứ bao nhiêu
+   if(!empty($where)){
+    $totalRecords = mysqli_query($con, "SELECT * FROM `Products` where (".$where.")");
+}else{
+    $totalRecords = mysqli_query($con, "SELECT * FROM `Products`");
+}
+   $totalRecords = $totalRecords->num_rows;//tổng số sản phẩm
+   $totalPages = ceil($totalRecords / $item_per_page);//số trang cần có
+   if(!empty($where)){
+    $products = mysqli_query($con, "SELECT * FROM `Products` where (".$where.") ".$orderConditon." LIMIT " . $item_per_page . " OFFSET " . $offset);
+}else{
+    $products = mysqli_query($con, "SELECT * FROM `Products` ".$orderConditon." LIMIT " . $item_per_page . " OFFSET " . $offset);
+}
+mysqli_close($con);
+  ?>
   <body class="ps-loading">
     <div class="header--sidebar"></div>
     <?php include 'header.php'; ?>
@@ -50,16 +88,21 @@
     <main class="ps-main">
       <div class="ps-products-wrap pt-80 pb-80">
         <div class="ps-products" data-mh="product-listing">
-          <div class="ps-product-action">
+          <div class="ps-product-action" style="flex-direction: column;align-items: flex-end;">
             <div class="ps-product__filter">
-              <select class="ps-select selectpicker">
-                <option value="1">Shortby</option>
-                <option value="2">Name</option>
-                <option value="3">Price (Low to High)</option>
-                <option value="3">Price (High to Low)</option>
+              <select class="ps-select selectpicker" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option value="">Sắp xếp giá</option>
+                <?php if(!isset($_GET['iddm'])){?>
+                  <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "desc") { ?> selected <?php } ?> value="product-listing.php?field=price&sort=desc">Cao đến thấp</option>
+                <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "asc") { ?> selected <?php } ?> value="product-listing.php?field=price&sort=asc">Thấp đến cao</option>
+                         <?php }else{?>
+                          <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "desc") { ?> selected <?php } ?> value="?iddm=<?= $_SESSION['category_id'] ?>&field=price&sort=desc">Cao đến thấp</option>
+                <option <?php if(isset($_GET['sort']) && $_GET['sort'] == "asc") { ?> selected <?php } ?> value="?iddm=<?= $_SESSION['category_id'] ?>&field=price&sort=asc">Thấp đến cao</option>                          
+                          <?php }?>
+                
               </select>
             </div>
-            <div class="ps-pagination">
+            <!-- <div class="ps-pagination">
               <ul class="pagination">
                 <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
                 <li class="active"><a href="#">1</a></li>
@@ -68,58 +111,12 @@
                 <li><a href="#">...</a></li>
                 <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
               </ul>
-            </div>
+            </div> -->
           </div>
           <div class="ps-product__columns">
-            <?php
-            include 'connect_db.php';
-            if (isset($_GET['iddm'])) {
-              $category_id = $_GET['iddm'];
-              $sqlsp="SELECT*FROM products WHERE category_id = $category_id";
-              $kqsp= mysqli_query($con,$sqlsp);
-              while($row=mysqli_fetch_array($kqsp)){
-                $idsp=$row['id'];
-              ?>
-              <div class="ps-product__column">
-              <div class="ps-shoe mb-30">
-                <div class="ps-shoe__thumbnail">
-                  <div class="ps-badge"><span>New</span></div>
-                  <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="../<?= $row['image'] ?>" alt=""><a class="ps-shoe__overlay" href="product-detail.php?idsp=<?php echo $idsp; ?>"></a>
-                </div>
-                <div class="ps-shoe__content">
-                  <div class="ps-shoe__variants">
-                    <div class="ps-shoe__variant normal">
-                      <?php
-                      $sqlimg="SELECT*FROM image_library WHERE product_id=".$idsp;
-                      $kqimg=mysqli_query($con,$sqlimg); 
-                      while($row_img=mysqli_fetch_array($kqimg)):
-                      ?>
-                      <img src="../<?= $row_img['path'] ?>" alt="">
-                      <?php endwhile ?>
-                    </div>
-                    <select class="ps-rating ps-shoe__rating">
-                      <option value="1">1</option>
-                      <option value="1">2</option>
-                      <option value="1">3</option>
-                      <option value="1">4</option>
-                      <option value="2">5</option>
-                    </select>
-                  </div>
-                  <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
-                    <p class="ps-shoe__categories"> <?php echo 'Lều'?></p><span class="ps-shoe__price">
-                      <del style="font-size:15px;margin-top:15px;"></del> <?php echo '<br>'.$row['price'].' VND'; ?></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-              <?php
-            }?>
-            
-           
-           <?php }else{
-            $sqlsp="SELECT*FROM products";
-            $kqsp= mysqli_query($con,$sqlsp);
-            while($row=mysqli_fetch_array($kqsp)){
+<?php
+            //hiển thị tất cả sản phẩm
+            while($row=mysqli_fetch_array($products)){
               $idsp=$row['id'];
             ?>
             <div class="ps-product__column">
@@ -156,29 +153,22 @@
           </div>
             <?php
           }?>
+                          <div style="clear: both" class=""></div>
           <?php
-           }
-           ?>
+                include './pagination.php';
+                ?>
           </div>
           <div class="ps-product-action">
-            <div class="ps-product__filter">
+            <!-- <div class="ps-product__filter">
               <select class="ps-select selectpicker">
                 <option value="1">Shortby</option>
                 <option value="2">Name</option>
                 <option value="3">Price (Low to High)</option>
                 <option value="3">Price (High to Low)</option>
               </select>
-            </div>
-            <div class="ps-pagination">
-              <ul class="pagination">
-                <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">...</a></li>
-                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-              </ul>
-            </div>
+            </div> -->
+            <?php
+            ?>
           </div>
         </div>
         <div class="ps-sidebar" data-mh="product-listing">
@@ -188,12 +178,37 @@
             </div>
             <div class="ps-widget__content">
               <ul class="ps-list--checked">
-                <li class="current"><a href="product-listing.html">Tất cả</a></li>
-                <li><a href="product-listing.html">Lều</a></li>
+                <!-- xứ lý danh mục bên trái màn hình -->
+                <?php if(!isset($_GET['iddm'])){?>
+                    <li class="current"><a href="product-listing.php">Tất cả</a>
+                          </li>
+                         <?php }else{?>
+                          <li class=""><a href="product-listing.php">Tất cả</a>
+                          </li>
+                          <?php }?>
+              <?php
+                    include 'connect_db.php';
+                    $sqldm="SELECT*FROM category";
+                    $kqdm=mysqli_query($con,$sqldm);
+                    while($row=mysqli_fetch_array($kqdm)){
+                    ?>
+                          <?php if(isset($_GET['iddm'])  && $_GET['iddm'] == $row['id']){?>
+                            <li class="current"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php echo $row['name']; ?></a>
+                          </li>
+                         <?php }else{?>
+                          <li class=""><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php echo $row['name']; ?></a>
+                          </li>
+                        <?php } ?>
+                          <?php
+                          }
+                          ?>
+                  </li>
+                <!-- <li class="current"><a href="">Tất cả</a></li>               
+                 <li><a href="product-listing.html">Lều</a></li>
                 <li><a href="product-listing.html">Vật dụng</a></li>
                 <li><a href="product-listing.html">Thức ăn</a></li>
                 <li><a href="product-listing.html">Đồ uống</a></li>
-                <li><a href="product-listing.html">Vật liệu</a></li>
+                <li><a href="product-listing.html">Vật liệu</a></li> -->
               </ul>
             </div>
           </aside>
@@ -203,16 +218,16 @@
             <div class="ps-widget__header">
               <h3>Width</h3>
             </div>
-            <div class="ps-widget__content">
+            <!-- <div class="ps-widget__content">
               <ul class="ps-list--checked">
                 <li class="current"><a href="product-listing.html">Narrow</a></li>
                 <li><a href="product-listing.html">Regular</a></li>
                 <li><a href="product-listing.html">Wide</a></li>
                 <li><a href="product-listing.html">Extra Wide</a></li>
               </ul>
-            </div>
+            </div> -->
           </aside>
-          <div class="ps-sticky desktop">
+          <!-- <div class="ps-sticky desktop">
             <aside class="ps-widget--sidebar">
               <div class="ps-widget__header">
                 <h3>Size</h3>
@@ -257,7 +272,7 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
+              </div> -->
             </aside>
             <aside class="ps-widget--sidebar">
               

@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Bài 15: Hướng dẫn tạo quản trị menu đa cấp trong PHP - Phần 1</title>
+        <title>TRANG QUẢN TRỊ</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css1/admin_style.css" >

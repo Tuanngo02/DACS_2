@@ -96,6 +96,18 @@ if (!empty($_SESSION['current_user'])) {
                         <div class="clear-both"></div>
                     </div>
                     <div class="wrap-field">
+                        <label>Danh mục: </label>
+                        <select name="iddanhmuc" id="" style ="margin-bottom: 10px;line-height: 32px;float: left;padding: 9px 18px 9px 10px;">
+                        <?php
+                            $kq = mysqli_query($con, "SELECT * FROM `category`");
+                             while($row = mysqli_fetch_array($kq)){
+                                  echo '<option value = "' . $row['id'].'">'.$row['name'].'</option>';
+                            }
+                        ?>
+                        </select>
+                                <div class="clear-both"></div>
+                    </div>
+                    <div class="wrap-field">
                         <label>Giá sản phẩm: </label>
                         <input type="text" name="price" value="<?= (!empty($product) ? number_format($product['price'], 0, ",", ".") : "") ?>" />
                         <div class="clear-both"></div>
@@ -132,15 +144,6 @@ if (!empty($_SESSION['current_user'])) {
                             <input multiple="" type="file" name="gallery[]" />
                         </div>
                         <div class="clear-both"></div>
-                    </div>
-                    <div class="wrap-field">
-                    <select name="iddanhmuc" id="">
-        <?php
-            $kq = mysqli_query($con, "SELECT * FROM `category`");
-            while($row = mysqli_fetch_array($kq)){
-                echo '<option value = "' . $row['id'].'">'.$row['name'].'</option>';
-            }
-        ?>
                     </div>
                     <div class="wrap-field">
                         <label>Nội dung: </label>

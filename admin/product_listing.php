@@ -4,12 +4,12 @@ $config_name = "product";
 $config_title = "sản phẩm";
 if (!empty($_SESSION['current_user'])) {
     if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
-        $_SESSION[$config_name.'_filter'] = $_POST;
-        header('Location: '.$config_name.'_listing.php');exit;
+        $_SESSION['product_filter'] = $_POST;
+        header('Location: product_listing.php');exit;
     }
-    if(!empty($_SESSION[$config_name.'filter'])){
+    if(!empty($_SESSION['product_filter'])){
         $where = "";
-        foreach ($_SESSION[$config_name.'filter'] as $field => $value) {
+        foreach ($_SESSION['product_filter'] as $field => $value) {
             if(!empty($value)){
                 switch ($field) {
                     case 'name':
@@ -21,7 +21,7 @@ if (!empty($_SESSION['current_user'])) {
                 }
             }
         }
-        extract($_SESSION[$config_name.'filter']);
+        extract($_SESSION['product_filter']);
     }
     $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 10;
     $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
