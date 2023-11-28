@@ -1,3 +1,14 @@
+<?php 
+session_start();
+if(!isset($_SESSION['giohang'])) $_SESSION['giohang']=[];
+if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
+  $tensp=$_POST['tensp'];
+  $gia=$_POST['gia'];
+  $soluong=$_POST['soluong'];
+  $sp=[$tensp,$gia,$soluong];
+  $_SESSION['giohang'][]=$sp;
+}
+?>
 <!DOCTYPE html>
 <!--[if IE 7]><html class="ie ie7"><![endif]-->
 <!--[if IE 8]><html class="ie ie8"><![endif]-->
@@ -141,59 +152,36 @@
             <table class="table ps-cart__table">
               <thead>
                 <tr>
-                  <th>All Products</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
+                  <th>Tất cả sản phẩm</th>
+                  <th>Giá</th>
+                  <th>Số lượng</th>
+                  <th>Tổng tiền</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
+
+              <?php if(isset($_SESSION['giohang']) && (is_array($_SESSION['giohang']))){
+                $total=0;
+                for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+                  $total+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]);
+                ?>
                 <tr>
-                  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/1.jpg" alt=""> air jordan One mid</a></td>
-                  <td>$150</td>
+                  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/1.jpg" alt=""> <?php echo $_SESSION['giohang'][$i][0]; ?></a></td>
+                  <td><?php echo $_SESSION['giohang'][$i][1]; ?></td>
                   <td>
                     <div class="form-group--number">
-                      <button class="minus"><span>-</span></button>
-                      <input class="form-control" type="text" value="2">
-                      <button class="plus"><span>+</span></button>
+                      
+                      <input class="form-control" type="number" value="<?php echo $_SESSION['giohang'][$i][2]; ?>">
+                     
                     </div>
                   </td>
-                  <td>$300</td>
+                  <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]); ?></td>
                   <td>
                     <div class="ps-remove"></div>
                   </td>
                 </tr>
-                <tr>
-                  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/2.jpg" alt=""> The Crusty Croissant</a></td>
-                  <td>$150</td>
-                  <td>
-                    <div class="form-group--number">
-                      <button class="minus"><span>-</span></button>
-                      <input class="form-control" type="text" value="2">
-                      <button class="plus"><span>+</span></button>
-                    </div>
-                  </td>
-                  <td>$300</td>
-                  <td>
-                    <div class="ps-remove"></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/3.jpg" alt="">The Rolling Pin</a></td>
-                  <td>$150</td>
-                  <td>
-                    <div class="form-group--number">
-                      <button class="minus"><span>-</span></button>
-                      <input class="form-control" type="text" value="2">
-                      <button class="plus"><span>+</span></button>
-                    </div>
-                  </td>
-                  <td>$300</td>
-                  <td>
-                    <div class="ps-remove"></div>
-                  </td>
-                </tr>
+                <?php }} ?>
               </tbody>
             </table>
             <div class="ps-cart__actions">
@@ -208,7 +196,7 @@
                 </div>
               </div>
               <div class="ps-cart__total">
-                <h3>Total Price: <span> 2599.00 $</span></h3><a class="ps-btn" href="checkout.html">Process to checkout<i class="ps-icon-next"></i></a>
+                <h3>Total Price: <span> <?php echo $total; ?> VND</span></h3><a class="ps-btn" href="checkout.html">Process to checkout<i class="ps-icon-next"></i></a>
               </div>
             </div>
           </div>

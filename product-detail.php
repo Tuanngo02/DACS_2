@@ -59,6 +59,7 @@
           </div>
         </div>
       </div>
+      
       <div class="ps-product--detail pt-60">
         <div class="ps-container">
           <div class="row">
@@ -99,6 +100,7 @@
                   <?php endwhile ?>
                 </div>
               </div>
+              <form action="cart.php" method="POST">
               <div class="ps-product__info">
                 <div class="ps-product__rating">
                   <select class="ps-rating">
@@ -113,7 +115,7 @@
                 <?php 
                 $sql_product="SELECT*FROM products WHERE id=".$_GET['idsp'];
                 $kq_product= mysqli_query($con,$sql_product);
-                while($row_product=mysqli_fetch_array($kq_product)){
+                while($row_product=mysqli_fetch_array($kq_product)){ $name_product=$row_product['name']; $price_product=$row_product['price'];
                  ?>
                 <h1><?php echo $row_product['name']; ?></h1>
                 <p class="ps-product__category"><a href="#"> Lều</a></p>
@@ -123,7 +125,7 @@
                   <p><?php echo $row_product['content'];} ?></p>
                 </div>
                 <div class="ps-product__block ps-product__size">
-                  <h4>SỐ NGÀY THUÊ</h4>
+                  <h4>SỐ NGÀY THUÊ ㅤㅤㅤㅤㅤㅤSỐ LƯỢNG</h4> 
                   <select class="ps-select selectpicker">
                     <option value="0">CHỌN SỐ NGÀY</option>
                     <option value="1">1 ngày</option>
@@ -134,12 +136,19 @@
                     <option value="6">6 ngày</option>
                     <option value="7">7 ngày</option>
                   </select>
-                  
+                  <div class="form-group" >
+                    <input class="form-control" type="number" name="soluong" value="1" min="1" max="10" style="border-radius:2px;">
+                  </div>
                 </div>
-                <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a>
+                <!-- Lấy thông tin từ sản phẩm -->
+                
+                <input type="hidden" name="tensp" value="<?php echo $name_product; ?>"> 
+                <input type="hidden" name="gia" value="<?php echo $price_product; ?>"> 
+                <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart1" value="Thêm vào giỏ hàng">
+                  <!-- <a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a> -->
                   <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
                 </div>
-              </div>
+              </div></form>
               <div class="clearfix"></div>
               <div class="ps-product__content mt-50">
                 <ul class="tab-list" role="tablist">
