@@ -59,7 +59,7 @@
           </div>
         </div>
       </div>
-      
+      <form action="cart.php" method="POST">
       <div class="ps-product--detail pt-60">
         <div class="ps-container">
           <div class="row">
@@ -67,8 +67,14 @@
               <div class="ps-product__thumbnail">
                 <div class="ps-product__preview">
                   <div class="ps-product__variants">
+                    <?php include 'connect_db.php';
+                     $sqlimg_product="SELECT*FROM products WHERE id=".$_GET['idsp'];
+                     $kqimg_product= mysqli_query($con,$sqlimg_product);
+                     while($rowimg_product=mysqli_fetch_array($kqimg_product)){
+                      $image_product= $rowimg_product['image'];}
+                    ?>
+                  <div class="item"><img src="../<?php echo $image_product; ?>" alt=""></div>
                     <?php 
-                    include 'connect_db.php';
                     $sqlimg_detail="SELECT*FROM image_library WHERE product_id=".$_GET['idsp'];
                     $kqimg_detail= mysqli_query($con,$sqlimg_detail);
                     while($rowimg_detail=mysqli_fetch_array($kqimg_detail)):
@@ -79,6 +85,7 @@
                   <a class="popup-youtube ps-product__video" href="http://www.youtube.com/watch?v=0O2aH4XLbto"><img src="images/shoe-detail/1.jpg" alt=""><i class="fa fa-play"></i></a>
                 </div>
                 <div class="ps-product__image">
+                <div class="item"><img class="zoom" src="../<?php echo $image_product; ?>" alt="" data-zoom-image="../<?php echo $image_product; ?>"></div>
                   <?php 
                   $sqlimg_detail1="SELECT*FROM image_library WHERE product_id=".$_GET['idsp'];
                   $kqimg_detail1= mysqli_query($con,$sqlimg_detail1);
@@ -100,7 +107,7 @@
                   <?php endwhile ?>
                 </div>
               </div>
-              <form action="cart.php" method="POST">
+              
               <div class="ps-product__info">
                 <div class="ps-product__rating">
                   <select class="ps-rating">
@@ -119,15 +126,14 @@
                  ?>
                 <h1><?php echo $row_product['name']; ?></h1>
                 <p class="ps-product__category"><a href="#"> Lều</a></p>
-                <h3 class="ps-product__price"><?php echo $row_product['price'].' VND';  ?> <del> <!--£ 330 --> </del></h3>
+                <h3 class="ps-product__price"><?php echo $row_product['price'].' VND/Ngày';  ?> <del> <!--£ 330 --> </del></h3>
                 <div class="ps-product__block ps-product__quickview">
                   <h4>MÔ TẢ</h4>
                   <p><?php echo $row_product['content'];} ?></p>
                 </div>
                 <div class="ps-product__block ps-product__size">
                   <h4>SỐ NGÀY THUÊ ㅤㅤㅤㅤㅤㅤSỐ LƯỢNG</h4> 
-                  <select class="ps-select selectpicker">
-                    <option value="0">CHỌN SỐ NGÀY</option>
+                  <select class="ps-select selectpicker" name="songaythue">
                     <option value="1">1 ngày</option>
                     <option value="2">2 ngày</option>
                     <option value="3">3 ngày</option>
@@ -141,14 +147,15 @@
                   </div>
                 </div>
                 <!-- Lấy thông tin từ sản phẩm -->
-                
+                <input type="hidden" name="idproduct" value="<?php echo $_GET['idsp']; ?>">
+                <input type="hidden" name="hinhanhsp" value="<?php echo $image_product; ?>">
                 <input type="hidden" name="tensp" value="<?php echo $name_product; ?>"> 
                 <input type="hidden" name="gia" value="<?php echo $price_product; ?>"> 
-                <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart1" value="Thêm vào giỏ hàng">
+                <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng">
                   <!-- <a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a> -->
                   <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
                 </div>
-              </div></form>
+              </div>
               <div class="clearfix"></div>
               <div class="ps-product__content mt-50">
                 <ul class="tab-list" role="tablist">
@@ -237,7 +244,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div></form>
       <div class="ps-section ps-section--top-sales ps-owl-root pt-40 pb-80">
         <div class="ps-container">
           <div class="ps-section__header mb-50">
