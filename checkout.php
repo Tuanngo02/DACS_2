@@ -45,9 +45,9 @@
 
   <?php 
 if(isset($_POST['thanhtoan'])&& ($_POST['thanhtoan'])){
-  if(isset($_COOKIE['user_cookie'])){
+  if(!isset($_COOKIE['user_cookie'])){
     
-  }else{  
+  
     echo '<input type="hidden"  value="">';
 ?> <script>
 Swal.fire({
@@ -107,9 +107,9 @@ window.location="login.php";
                               <input class="form-control" type="text" name="address_users" value="<?php echo $row_users['address']; ?>">
                             </div>
                       <h3 class="mt-40"> Thông tin bổ sung</h3>
-                      <div class="form-group form-group--inline textarea">
+                      <div class="form-group form-group--inline textarea" >
                         <label>Ghi chú đơn hàng</label>
-                        <textarea class="form-control" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                        <textarea class="form-control" name="thongtinbosung" rows="5" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                       </div> <?php }?>
                     </div>
                   </div>
@@ -131,7 +131,7 @@ window.location="login.php";
                           <?php 
                           $soluongck=$_POST['soluongck'];
                           $totalck=$_POST['total'];
-                          for($i=0; $i< sizeof($_SESSION['giohang']);$i++){ ?>
+                          for($i=0; $i< sizeof($_SESSION['giohang']);$i++){  ?>
                             <tr>
                               <td><?php echo $_SESSION['giohang'][$i][0].' (x'.$_SESSION['giohang'][$i][2].' )('.$_SESSION['giohang'][$i][4].' ngày)' ?></td>
                               <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND' ?></td>
