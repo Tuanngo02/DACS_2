@@ -1,4 +1,4 @@
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
     <!-- CSS Library-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/owl-carousel/assets/owl.carousel.css">
     <link rel="stylesheet" href="plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css">
@@ -47,7 +48,7 @@ if(isset($_POST['thanhtoan'])&& ($_POST['thanhtoan'])){
   if(isset($_COOKIE['user_cookie'])){
     
   }else{  
-    var_export($_COOKIE['user_cookie']);
+    echo '<input type="hidden"  value="">';
 ?> <script>
 Swal.fire({
 title: "Bạn chưa đăng nhập!",

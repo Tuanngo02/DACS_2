@@ -1,6 +1,5 @@
 <?php 
 session_start();
-if(!isset($_SESSION['giohang'])) $_SESSION['giohang']=[];
 if(isset($_POST['addcart'])&& ($_POST['addcart'])){
   $tensp=$_POST['tensp'];
   $gia=$_POST['gia'];
@@ -59,7 +58,6 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
   <!--[if IE 8]><body class="ie8 lt-ie9 lt-ie10"><![endif]-->
   <!--[if IE 9]><body class="ie9 lt-ie10"><![endif]-->
   <body class="ps-loading">
-    <div class="header--sidebar"></div>
     <div class="header--sidebar"></div>
     <header class="header">
       <div class="header__top">
