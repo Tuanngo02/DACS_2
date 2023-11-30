@@ -174,16 +174,16 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
                   $total+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]);
                 ?>
                 <tr>
-                  <td><a class="ps-product__preview" href="product-detail.php?idsp=<?php echo $_SESSION['giohang'][$i][5]; ?>"><img class="mr-15" style="width: 100px; height: 100px;" src="../<?php  echo $_SESSION['giohang'][$i][3];  ?>" alt=""> <?php echo $_SESSION['giohang'][$i][0]; ?></a></td>
+                  <td><a class="ps-product__preview" href="product-detail.php?idsp=<?php echo $_SESSION['giohang'][$i][5]; ?>"><img class="mr-15" style="width: 100px; height: 100px;" src="../<?php  echo $_SESSION['giohang'][$i][3];  ?>" alt=""> <?php echo $_SESSION['giohang'][$i][0].'(x'.$_SESSION['giohang'][$i][4].' ngày)'; ?></a></td>
                   <td><?php echo $_SESSION['giohang'][$i][1]; ?></td>
                   <td>
                     <div class="form-group--number">
                       
-                      <input class="form-control" type="number" value="<?php echo $_SESSION['giohang'][$i][2]; ?>">
+                      <input class="form-control" type="number"   name="soluongck" value="<?php echo $_SESSION['giohang'][$i][2]; ?>" readonly>
                      
                     </div>
                   </td>
-                  <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]); ?></td>
+                  <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND'; ?></td>
                   <td>
                     <div class="ps-remove"></div>
                   </td>
@@ -193,7 +193,7 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
             </table>
             <div class="ps-cart__actions">
               <div class="ps-cart__promotion">
-                
+                <input type="hidden" name="total" value="<?php echo $total; ?>">
               </div>
               <div class="ps-cart__total">
                 <h3>Tổng tiền: <span> <?php echo $total; ?> VND</span></h3><input type="submit" name="thanhtoan" class="ps-btn" href="checkout.php" value="Thanh toán sản phẩm">
