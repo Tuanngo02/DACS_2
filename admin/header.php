@@ -13,6 +13,30 @@ and open the template in the editor.
         <script src="../resources/ckeditor/ckeditor.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     </head>
+    <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: ;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #717171;
+  color: white;
+}
+</style>
     <body>
         <?php
         session_start();
@@ -44,6 +68,7 @@ and open the template in the editor.
                                 <li><a href="#">Tin tức</a></li>
                                 <li><a href="product_listing.php">Sản phẩm</a></li>
                                 <li><a href="order_listing.php">Đơn hàng</a></li>
+                                <li><a href="member_listing.php">Thành viên</a></li>
                             </ul>
                         </div>
                     </div>

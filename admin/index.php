@@ -32,7 +32,7 @@ and open the template in the editor.
         include '../connect_db.php';
         $error = false;
         if (isset($_POST['username']) && !empty($_POST['username']) && isset($_POST['password']) && !empty($_POST['password'])) {
-            $result = mysqli_query($con, "Select `id`,`username`,`fullname`,`birthday` from `Users` WHERE (`username` ='" . $_POST['username'] . "' AND `password` = '" . $_POST['password'] . "')");
+            $result = mysqli_query($con, "Select `id`,`username`,`fullname`,`birthday` from `Users` WHERE (`username` ='" . $_POST['username'] . "' AND `password` = '" . $_POST['password'] . "' AND `role_id` = '1')");
             if (!$result) {
                 $error = mysqli_error($con);
             } else {
@@ -44,7 +44,7 @@ and open the template in the editor.
                 ?>
                 <div id="login-notify" class="box-content">
                     <h1>Thông báo</h1>
-                    <h4><?= !empty($error) ? $error : "Thông tin đăng nhập không chính xác" ?></h4>
+                    <h4><?= !empty($error) ? $error : "Bạn không phải ADMIN! Vui lòng đăng nhập lại." ?></h4>
                     <a href="./index.php">Quay lại</a>
                 </div>
                 <?php
