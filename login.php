@@ -1,3 +1,27 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Bụi Camp- Đăng nhập</title>
+<script src="js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="css1/stylelogin.css" rel="stylesheet" type="text/css" media="all"/>
+
+<script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
+<!-- for-mobile-apps -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="keywords" content="Classy Login form Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<!-- //for-mobile-apps -->
+<!--Google Fonts-->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<!--header start here-->
+<div class="header">
 <?php
     if((isset($_POST['dangnhap']))&&($_POST['dangnhap'])){
 		static $id;
@@ -25,27 +49,7 @@
 <?php 
 }
 	}
-?>
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>Bụi Camp- Đăng nhập</title>
-<script src="js/jquery.min.js"></script>
-<!-- Custom Theme files -->
-<link href="css1/stylelogin.css" rel="stylesheet" type="text/css" media="all"/>
-<!-- for-mobile-apps -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<meta name="keywords" content="Classy Login form Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<!-- //for-mobile-apps -->
-<!--Google Fonts-->
-<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<!--header start here-->
-<div class="header">
-	
+?>	
 <div class="header-main">
 			<a href="index.php">
 			<img src="favicon.jpg" style="width: 150px; border-radius: 50%; margin-left:155px; margin-top:-70px;" alt="">

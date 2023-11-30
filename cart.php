@@ -1,13 +1,18 @@
 <?php 
 session_start();
 if(!isset($_SESSION['giohang'])) $_SESSION['giohang']=[];
-if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
+if(isset($_POST['addcart'])&& ($_POST['addcart'])){
   $tensp=$_POST['tensp'];
   $gia=$_POST['gia'];
   $soluong=$_POST['soluong'];
-  $sp=[$tensp,$gia,$soluong];
+  $hinhanh=$_POST['hinhanhsp'];
+  $songay=$_POST['songaythue'];
+  $idproduct=$_POST['idproduct'];
+  $sp=[$tensp,$gia,$soluong,$hinhanh,$songay,$idproduct];
   $_SESSION['giohang'][]=$sp;
+  header("location: cart.php");
 }
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 7]><html class="ie ie7"><![endif]-->
@@ -30,6 +35,8 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
     <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow:300,400,700%7CMontserrat:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="plugins/ps-icon/style.css">
+
+    
     <!-- CSS Library-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css">
@@ -53,11 +60,12 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
   <!--[if IE 9]><body class="ie9 lt-ie10"><![endif]-->
   <body class="ps-loading">
     <div class="header--sidebar"></div>
+    <div class="header--sidebar"></div>
     <header class="header">
       <div class="header__top">
         <div class="container-fluid">
           <div class="row">
-          <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
+                <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
                   <p>254/K1 Trần Cao Vân, Thanh Khê, Đà Nẵng  -  Hotline: 804-377-3580 - 804-399-3580</p>
                 </div>
                 <?php if(isset($_COOKIE['user_cookie'])){ ?>
@@ -113,7 +121,7 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
                     $kqdm=mysqli_query($con,$sqldm);
                     while($row=mysqli_fetch_array($kqdm)){
                     ?>
-                          <li class="menu-item menu-item-has-children dropdown"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php echo $row['name']; ?></a>
+                          <li class="menu-item menu-item-has-children dropdown"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php  echo $row['name']; ?></a>
                           </li>
                           <?php
                           }
@@ -129,7 +137,7 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
               <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
               <button><i class="ps-icon-search"></i></button>
             </form>
-            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.html"><span><i>20</i></span><i class="ps-icon-shopping-cart"></i></a>
+            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i><?php  echo sizeof($_SESSION['giohang']); ?></i></span><i class="ps-icon-shopping-cart"></i></a>
             
               </div>
             </div>
@@ -146,6 +154,7 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
       </div>
     </div>
     <main class="ps-main">
+    <form action="checkout.php" method="POST">
       <div class="ps-content pt-80 pb-80">
         <div class="ps-container">
           <div class="ps-cart-listing">
@@ -160,14 +169,14 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
                 </tr>
               </thead>
               <tbody>
-
+                
               <?php if(isset($_SESSION['giohang']) && (is_array($_SESSION['giohang']))){
                 $total=0;
                 for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
-                  $total+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]);
+                  $total+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]);
                 ?>
                 <tr>
-                  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/1.jpg" alt=""> <?php echo $_SESSION['giohang'][$i][0]; ?></a></td>
+                  <td><a class="ps-product__preview" href="product-detail.php?idsp=<?php echo $_SESSION['giohang'][$i][5]; ?>"><img class="mr-15" style="width: 100px; height: 100px;" src="../<?php  echo $_SESSION['giohang'][$i][3];  ?>" alt=""> <?php echo $_SESSION['giohang'][$i][0]; ?></a></td>
                   <td><?php echo $_SESSION['giohang'][$i][1]; ?></td>
                   <td>
                     <div class="form-group--number">
@@ -176,7 +185,7 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
                      
                     </div>
                   </td>
-                  <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]); ?></td>
+                  <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]); ?></td>
                   <td>
                     <div class="ps-remove"></div>
                   </td>
@@ -186,22 +195,15 @@ if(isset($_POST['addcart1'])&& ($_POST['addcart1'])){
             </table>
             <div class="ps-cart__actions">
               <div class="ps-cart__promotion">
-                <div class="form-group">
-                  <div class="ps-form--icon"><i class="fa fa-angle-right"></i>
-                    <input class="form-control" type="text" placeholder="Promo Code">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="ps-btn ps-btn--gray">Continue Shopping</button>
-                </div>
+                
               </div>
               <div class="ps-cart__total">
-                <h3>Total Price: <span> <?php echo $total; ?> VND</span></h3><a class="ps-btn" href="checkout.html">Process to checkout<i class="ps-icon-next"></i></a>
+                <h3>Tổng tiền: <span> <?php echo $total; ?> VND</span></h3><input type="submit" name="thanhtoan" class="ps-btn" href="checkout.php" value="Thanh toán sản phẩm">
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div></form>
       <div class="ps-subscribe">
         <div class="ps-container">
           <div class="row">

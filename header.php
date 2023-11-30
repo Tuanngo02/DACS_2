@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <header class="header">
       <div class="header__top">
         <div class="container-fluid">
@@ -58,7 +59,7 @@
                     $kqdm=mysqli_query($con,$sqldm);
                     while($row=mysqli_fetch_array($kqdm)){
                     ?>
-                          <li class="menu-item menu-item-has-children dropdown"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php echo $row['name']; ?></a>
+                          <li class="menu-item menu-item-has-children dropdown"><a href="<?php echo 'product-listing.php?iddm='.$row['id']; ?>"> <?php  echo $row['name']; ?></a>
                           </li>
                           <?php
                           }
@@ -74,7 +75,7 @@
               <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
               <button><i class="ps-icon-search"></i></button>
             </form>
-            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i>20</i></span><i class="ps-icon-shopping-cart"></i></a>
+            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i><?php  echo sizeof($_SESSION['giohang']); ?></i></span><i class="ps-icon-shopping-cart"></i></a>
             
               </div>
             </div>

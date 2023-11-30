@@ -146,7 +146,7 @@ mysqli_close($con);
                 </div>
                 <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
                   <p class="ps-shoe__categories"> <?php echo 'Lều'?></p><span class="ps-shoe__price">
-                    <del style="font-size:15px;margin-top:15px;"></del> <?php echo '<br>'.$row['price'].' VND'; ?></span>
+                    <del style="font-size:15px;margin-top:15px;"></del> <?php echo '<br>'.$row['price'].' VND/Ngày'; ?></span>
                 </div>
               </div>
             </div>
