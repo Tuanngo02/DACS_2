@@ -152,11 +152,11 @@ hr {
         $order_id= $row_oder['id'];
     }
     for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+        if($_SESSION['giohang'][$i][0]!=NULL && $_SESSION['giohang'][$i][1]!=NULL && $_SESSION['giohang'][$i][2]!=NULL && $_SESSION['giohang'][$i][3]!=NULL && $_SESSION['giohang'][$i][4]!=NULL && $_SESSION['giohang'][$i][5]!=NULL){
         $sql_oderdetail="INSERT INTO oder_details(order_id,product_id,price,num,day_rent,total_money) 
         values($order_id,".$_SESSION['giohang'][$i][5].",".$_SESSION['giohang'][$i][1].",".$_SESSION['giohang'][$i][2].",".$_SESSION['giohang'][$i][4].",".($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).")";
         $kq_oderdetail=mysqli_query($con,$sql_oderdetail);
-    }
-
+    }}
 } ?>
 </head>
 <body>
@@ -233,7 +233,7 @@ Export
 <div class="d-none d-sm-block col-sm-2">Số ngày thuê</div>
 <div class="col-2">Giá</div>
 </div>
-<?php for($i=0; $i< sizeof($_SESSION['giohang']);$i++){ ?>
+<?php for($i=0; $i< sizeof($_SESSION['giohang']);$i++){if($_SESSION['giohang'][$i][0]!=NULL && $_SESSION['giohang'][$i][1]!=NULL && $_SESSION['giohang'][$i][2]!=NULL && $_SESSION['giohang'][$i][3]!=NULL && $_SESSION['giohang'][$i][4]!=NULL && $_SESSION['giohang'][$i][5]!=NULL){ ?>
 <div class="text-95 text-secondary-d3">
 <div class="row mb-2 mb-sm-0 py-25">
 <div class="d-none d-sm-block col-1"><?php echo ($i+1); ?></div>
@@ -243,7 +243,7 @@ Export
 <div class="col-2 text-secondary-d2"><?php echo $_SESSION['giohang'][$i][1]; ?></div>
 </div>
 </div>
-<?php }?>
+<?php }}?>
 <div class="row border-b-2 brc-default-l2"></div>
 
 <div class="row mt-3">

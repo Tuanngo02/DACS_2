@@ -132,12 +132,13 @@ window.location="login.php";
                           $soluongck=$_POST['soluongck'];
                           $totalck=$_POST['total'];
                           
-                          for($i=0; $i< sizeof($_SESSION['giohang']);$i++){  ?>
+                          for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+                            if($_SESSION['giohang'][$i][0]!=NULL && $_SESSION['giohang'][$i][1]!=NULL && $_SESSION['giohang'][$i][2]!=NULL && $_SESSION['giohang'][$i][3]!=NULL && $_SESSION['giohang'][$i][4]!=NULL && $_SESSION['giohang'][$i][5]!=NULL){  ?>
                             <tr>
                               <td><?php echo $_SESSION['giohang'][$i][0].' (x'.$_SESSION['giohang'][$i][2].' )('.$_SESSION['giohang'][$i][4].' ngày)' ?></td>
                               <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND' ?></td>
                             </tr>
-          <?php } ?>
+          <?php }} ?>
                             <tr>
                               <td>Tổng tiền</td>
                               <td><?php echo $totalck.' VND'; ?></td>
