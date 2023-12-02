@@ -75,7 +75,13 @@
               <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
               <button><i class="ps-icon-search"></i></button>
             </form>
-            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i><?php  echo sizeof($_SESSION['giohang']); ?></i></span><i class="ps-icon-shopping-cart"></i></a>
+            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i><?php  $_SESSION['soluongcart']=(int)sizeof($_SESSION['giohang']);
+            for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+              if($_SESSION['giohang'][$i][0]==NULL && $_SESSION['giohang'][$i][1]==NULL && $_SESSION['giohang'][$i][2]==NULL && $_SESSION['giohang'][$i][3]==NULL && $_SESSION['giohang'][$i][4]==NULL && $_SESSION['giohang'][$i][5]==NULL){
+                $_SESSION['soluongcart']-=1;
+              }}
+            echo $_SESSION['soluongcart']; 
+            ?></i></span><i class="ps-icon-shopping-cart"></i></a>
             
               </div>
             </div>

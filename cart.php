@@ -9,6 +9,7 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
   $idproduct=$_POST['idproduct'];
   $sp=[$tensp,$gia,$soluong,$hinhanh,$songay,$idproduct];
   $_SESSION['giohang'][]=$sp;
+  
   header("location: cart.php");
 }
 
@@ -135,7 +136,13 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
               <input class="form-control" type="text" placeholder="Tìm kiếm sản phẩm...">
               <button><i class="ps-icon-search"></i></button>
             </form>
-            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i><?php  echo sizeof($_SESSION['giohang']); ?></i></span><i class="ps-icon-shopping-cart"></i></a>
+            <div class="ps-cart"><a class="ps-cart__toggle" href="cart.php"><span><i><?php  $_SESSION['soluongcart']=(int)sizeof($_SESSION['giohang']);
+            for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+              if($_SESSION['giohang'][$i][0]==NULL && $_SESSION['giohang'][$i][1]==NULL && $_SESSION['giohang'][$i][2]==NULL && $_SESSION['giohang'][$i][3]==NULL && $_SESSION['giohang'][$i][4]==NULL && $_SESSION['giohang'][$i][5]==NULL){
+                $_SESSION['soluongcart']-=1;
+              }}
+            echo $_SESSION['soluongcart']; 
+            ?></i></span><i class="ps-icon-shopping-cart"></i></a>
             
               </div>
             </div>
@@ -171,10 +178,12 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
               <?php if(isset($_SESSION['giohang']) && (is_array($_SESSION['giohang']))){
                 $total=0;
                 for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+                  $idcart=$i;
                   $total+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]);
+                  if($_SESSION['giohang'][$i][0]!=NULL && $_SESSION['giohang'][$i][1]!=NULL && $_SESSION['giohang'][$i][2]!=NULL && $_SESSION['giohang'][$i][3]!=NULL && $_SESSION['giohang'][$i][4]!=NULL && $_SESSION['giohang'][$i][5]!=NULL){
                 ?>
                 <tr>
-                  <td><a class="ps-product__preview" href="product-detail.php?idsp=<?php echo $_SESSION['giohang'][$i][5]; ?>"><img class="mr-15" style="width: 100px; height: 100px;" src="../<?php  echo $_SESSION['giohang'][$i][3];  ?>" alt=""> <?php echo $_SESSION['giohang'][$i][0].'(x'.$_SESSION['giohang'][$i][4].' ngày)'; ?></a></td>
+                  <td><a class="ps-product__preview" href="product-detail.php?idsp=<?php  echo $_SESSION['giohang'][$i][5]; ?>"><img class="mr-15" style="width: 100px; height: 100px;" src="../<?php  echo $_SESSION['giohang'][$i][3];  ?>" alt=""> <?php echo $_SESSION['giohang'][$i][0].'(x'.$_SESSION['giohang'][$i][4].' ngày)'; ?></a></td>
                   <td><?php echo $_SESSION['giohang'][$i][1]; ?></td>
                   <td>
                     <div class="form-group--number">
@@ -185,10 +194,10 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
                   </td>
                   <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND'; ?></td>
                   <td>
-                    <a class="ps-remove" href=""></a>
+                    <a class="ps-remove" href="deletecart.php?id=<?php echo $i;?>"></a>
                   </td>
                 </tr>
-                <?php }} ?>
+                <?php  }}}  ?>
               </tbody>
             </table>
             <div class="ps-cart__actions">

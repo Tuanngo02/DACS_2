@@ -130,34 +130,7 @@ hr {
 
 
 
-<?php if(isset($_POST['thanhtoanck'])&& ($_POST['thanhtoanck'])){
-    include 'connect_db.php';
-    date_default_timezone_set('Asia/Ho_Chi_Minh');
-    $user_id=$_COOKIE['idu'];
-    $fullname=$_POST['fullname_users'];
-    $email=$_POST['email_users'];
-    $phone=$_POST['phone_users'];
-    $address=$_POST['address_users'];
-    $note=$_POST['thongtinbosung'];
-    $oder_date=date('Y-m-d H:i:s');
-    $status=$_POST['payment'];
 
-    $sql_oder="INSERT INTO oders(user_id,fullname,email,phone,address,note,order_date,status) 
-    values($user_id,'$fullname','$email','$phone','$address','$note','$oder_date','$status')";
-    $kq_oder=mysqli_query($con,$sql_oder);
-    $sql_oder1="SELECT*FROM oders WHERE user_id=".$user_id." AND order_date='".$oder_date."'";
-    $kq_oder1=mysqli_query($con,$sql_oder1);
-
-    while($row_oder=mysqli_fetch_array($kq_oder1)){
-        $order_id= $row_oder['id'];
-    }
-    for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
-        $sql_oderdetail="INSERT INTO oder_details(order_id,product_id,price,num,day_rent,total_money) 
-        values($order_id,".$_SESSION['giohang'][$i][5].",".$_SESSION['giohang'][$i][1].",".$_SESSION['giohang'][$i][2].",".$_SESSION['giohang'][$i][4].",".($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).")";
-        $kq_oderdetail=mysqli_query($con,$sql_oderdetail);
-    }
-
-} ?>
 </head>
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -199,16 +172,16 @@ Export
 <div class="col-sm-6">
 <div>
 <span class="text-sm text-grey-m2 align-middle">Người nhận:</span>
-<span class="text-600 text-110 text-blue align-middle"><?php echo $fullname;?></span>
+<span class="text-600 text-110 text-blue align-middle">LT</span>
 </div>
 <div class="text-grey-m2">
 <div class="my-1">
 Địa chỉ:
 </div>
 <div class="my-1">
-<?php echo $address; ?>
+DN
 </div>
-<div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"><?php echo $phone; ?></b></div>
+<div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">11111111</b></div>
 </div>
 </div>
 
@@ -218,9 +191,9 @@ Export
 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
 Đơn hàng
 </div>
-<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> <?php echo $order_id; ?></div>
-<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Ngày đặt:</span> <?php echo $oder_date; ?></div>
-<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Trạng thái:</span> <span class="badge badge-warning badge-pill px-25"><?php echo $status; ?></span></div>
+<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">ID:</span> 1</div>
+<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Ngày đặt:</span> 213</div>
+<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Trạng thái:</span> <span class="badge badge-warning badge-pill px-25">213132</span></div>
 </div>
 </div>
 
