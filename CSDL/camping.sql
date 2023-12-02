@@ -29,7 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL
+  `name` varchar(100) DEFAULT NULL,
+  `created_time` int(11) NULL,
+  `last_updated` int(11) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -53,7 +55,9 @@ CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `note` varchar(500) DEFAULT NULL
+  `note` varchar(500) DEFAULT NULL,
+  `created_time` int(11) NULL,
+  `last_updated` int(11) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -194,7 +198,7 @@ CREATE TABLE `users` (
   `email` varchar(150) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` varchar(200) DEFAULT NULL,
-  `birthday` int(11) NOT NULL,
+  `birthday` int(11) NULL,
   `created_time` int(11) NOT NULL,
   `last_updated` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

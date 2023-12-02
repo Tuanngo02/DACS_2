@@ -4,15 +4,15 @@ $config_name = "member";
 $config_title = "thành viên";
 if (!empty($_SESSION['current_user'])) {
     if(!empty($_GET['action']) && $_GET['action'] == 'search' && !empty($_POST)){
-        $_SESSION['product_filter'] = $_POST;
-        header('Location: product_listing.php');exit;
+        $_SESSION['member_filter'] = $_POST;
+        header('Location: member_listing.php');exit;
     }
-    if(!empty($_SESSION['product_filter'])){
+    if(!empty($_SESSION['member_filter'])){
         $where = "";
-        foreach ($_SESSION['product_filter'] as $field => $value) {
+        foreach ($_SESSION['member_filter'] as $field => $value) {
             if(!empty($value)){
                 switch ($field) {
-                    case 'name':
+                    case 'fullname':
                     $where .= (!empty($where))? " AND "."`".$field."` LIKE '%".$value."%'" : "`".$field."` LIKE '%".$value."%'";
                     break;
                     default:
@@ -21,7 +21,7 @@ if (!empty($_SESSION['current_user'])) {
                 }
             }
         }
-        extract($_SESSION['product_filter']);
+        extract($_SESSION['member_filter']);
     }
     $item_per_page = (!empty($_GET['per_page'])) ? $_GET['per_page'] : 10;
     $current_page = (!empty($_GET['page'])) ? $_GET['page'] : 1;
@@ -58,7 +58,7 @@ if (!empty($_SESSION['current_user'])) {
                     </legend>
                     ID: <input type="text" name="id" value="<?=!empty($id)?$id:""?>" />
                     Tên
-                    <?=$config_title?>: <input type="text" name="name" value="<?=!empty($name)?$name:""?>" />
+                    <?=$config_title?>: <input type="text" name="fullname" value="<?=!empty($fullname)?$fullname:""?>" />
                     <input type="submit" value="Tìm" />
                 </fieldset>
             </form>

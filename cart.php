@@ -185,7 +185,7 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
                   </td>
                   <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND'; ?></td>
                   <td>
-                    <div class="ps-remove"></div>
+                    <a class="ps-remove" href=""></a>
                   </td>
                 </tr>
                 <?php }} ?>
