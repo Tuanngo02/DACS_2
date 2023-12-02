@@ -131,6 +131,7 @@ window.location="login.php";
                           <?php 
                           $soluongck=$_POST['soluongck'];
                           $totalck=$_POST['total'];
+                          
                           for($i=0; $i< sizeof($_SESSION['giohang']);$i++){  ?>
                             <tr>
                               <td><?php echo $_SESSION['giohang'][$i][0].' (x'.$_SESSION['giohang'][$i][2].' )('.$_SESSION['giohang'][$i][4].' ngày)' ?></td>
@@ -146,10 +147,15 @@ window.location="login.php";
                       </div>
                       <footer>
                         <h3>Phương thức thanh toán</h3>
-                      
+                        <div class="form-group cheque">
+                          <div class="ps-radio">
+                            <input class="form-control" type="radio" id="rdo01" name="payment" value="Chưa Thanh Toán" checked>
+                            <label for="rdo01">Thanh toán sau khi nhận hàng</label>
+                          </div>
+                        </div>
                         <div class="form-group paypal">
                           <div class="ps-radio ps-radio--inline">
-                            <input class="form-control" type="radio" name="payment" id="rdo02">
+                            <input class="form-control" type="radio" name="payment" id="rdo02" value="Đã Thanh Toán">
                             <label for="rdo02">Paypal</label>
                           </div>
                           <ul class="ps-payment-method">
