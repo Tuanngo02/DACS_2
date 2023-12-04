@@ -110,14 +110,23 @@
               </div>
               
               <div class="ps-product__info">
+                <?php 
+                  $sql_show_comment_count="SELECT* FROM comment WHERE product_id=".$_GET['idsp'];
+                  $kq_show_comment_count=mysqli_query($con,$sql_show_comment_count);
+                  $count=0;
+                  $stars=0;
+                  while($row_show_comment_count=mysqli_fetch_array($kq_show_comment_count)){$count++; $stars+=$row_show_comment_count['rate_star'];}
+                  $stars_average=($stars/$count);
+                  ?>
                 <div class="ps-product__rating" >
+                <i><b style="size= 20px;"> <?php echo round($stars_average, 1); ?>*</b></i>
                   <select class="ps-rating" >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>4.8<a href="#">(Read all 8 reviews)</a>
+                  <?php for($i=0;$i<5;$i++){ if(($i+1)<=round($stars_average)){?>
+                          <option value="<?php echo round($stars_average) ?>"><?php echo ($i+1); ?></option> <?php }else{  ?>
+                            <option value="1"><?php echo ($i+1); ?></option>
+                          <?php }} ?>
+                  </select> 
+                  <a href="#review">(Read all <?php echo $count; ?> reviews)</a>
                 </div>
 
                 <?php 
@@ -161,7 +170,7 @@
               <div class="ps-product__content mt-50">
                 <ul class="tab-list" role="tablist">
                   <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Tổng quan</a></li>
-                  <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">Đánh giá</a></li>
+                  <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab" id="review">Đánh giá</a></li>
                 </ul>
               </div>
               <div class="tab-content mb-60">
@@ -170,10 +179,11 @@
                   <p>Sweet roll soufflé oat cake apple pie croissant. Pie gummi bears jujubes cake lemon drops gummi bears croissant macaroon pie. Fruitcake tootsie roll chocolate cake Carrot cake cake bear claw jujubes topping cake apple pie. Jujubes gummi bears soufflé candy canes topping gummi bears cake soufflé cake. Cotton candy soufflé sugar plum pastry sweet roll..</p>
                 </div>
                 <div class="tab-pane" role="tabpanel" id="tab_02">
-                  <?php $sql_show_comment="SELECT* FROM comment WHERE product_id=".$_GET['idsp'];
-                        $kq_show_comment=mysqli_query($con,$sql_show_comment);
-                    ?>
-                  <p class="mb-20">1 đánh giá cho <strong><?php echo $name_product; ?></strong></p>
+                  <?php 
+                  $sql_show_comment="SELECT* FROM comment WHERE product_id=".$_GET['idsp'];
+                  $kq_show_comment=mysqli_query($con,$sql_show_comment); 
+                  ?>
+                  <p class="mb-20"><?php echo $count; ?> đánh giá cho <strong><?php echo $name_product; ?></strong></p>
                   <?php while($row_show_comment=mysqli_fetch_array($kq_show_comment)){
                     $iduser=$row_show_comment['user_id'];
                    ?>

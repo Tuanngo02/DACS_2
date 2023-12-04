@@ -19,7 +19,6 @@ window.location="login.php";
 });
 </script><?php
   }else{
-
     $user_id=$_POST['user_id'];
     $product_id=$_POST['product_id'];
     $rating= $_POST['rating_star'];
