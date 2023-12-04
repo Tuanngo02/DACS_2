@@ -110,14 +110,14 @@
               </div>
               
               <div class="ps-product__info">
-                <div class="ps-product__rating">
-                  <select class="ps-rating">
+                <div class="ps-product__rating" >
+                  <select class="ps-rating" >
                     <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                    <option value="1">4</option>
-                    <option value="2">5</option>
-                  </select><a href="#">(Read all 8 reviews)</a>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>4.8<a href="#">(Read all 8 reviews)</a>
                 </div>
 
                 <?php 
@@ -156,14 +156,12 @@
                   <!-- <a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a> -->
                   <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
                 </div>
-              </div>
+              </div></form>
               <div class="clearfix"></div>
               <div class="ps-product__content mt-50">
                 <ul class="tab-list" role="tablist">
-                  <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Overview</a></li>
-                  <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">Review</a></li>
-                  <li><a href="#tab_03" aria-controls="tab_03" role="tab" data-toggle="tab">PRODUCT TAG</a></li>
-                  <li><a href="#tab_04" aria-controls="tab_04" role="tab" data-toggle="tab">ADDITIONAL</a></li>
+                  <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Tổng quan</a></li>
+                  <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab">Đánh giá</a></li>
                 </ul>
               </div>
               <div class="tab-content mb-60">
@@ -172,80 +170,73 @@
                   <p>Sweet roll soufflé oat cake apple pie croissant. Pie gummi bears jujubes cake lemon drops gummi bears croissant macaroon pie. Fruitcake tootsie roll chocolate cake Carrot cake cake bear claw jujubes topping cake apple pie. Jujubes gummi bears soufflé candy canes topping gummi bears cake soufflé cake. Cotton candy soufflé sugar plum pastry sweet roll..</p>
                 </div>
                 <div class="tab-pane" role="tabpanel" id="tab_02">
-                  <p class="mb-20">1 review for <strong>Shoes Air Jordan</strong></p>
+                  <?php $sql_show_comment="SELECT* FROM comment WHERE product_id=".$_GET['idsp'];
+                        $kq_show_comment=mysqli_query($con,$sql_show_comment);
+                    ?>
+                  <p class="mb-20">1 đánh giá cho <strong><?php echo $name_product; ?></strong></p>
+                  <?php while($row_show_comment=mysqli_fetch_array($kq_show_comment)){
+                    $iduser=$row_show_comment['user_id'];
+                   ?>
                   <div class="ps-review">
                     <div class="ps-review__thumbnail"><img src="images/user/1.jpg" alt=""></div>
                     <div class="ps-review__content">
                       <header>
                         <select class="ps-rating">
-                          <option value="1">1</option>
-                          <option value="1">2</option>
-                          <option value="1">3</option>
-                          <option value="1">4</option>
-                          <option value="5">5</option>
+                          <?php for($i=0;$i<5;$i++){ if(($i+1)<=$row_show_comment['rate_star']){?>
+                          <option value="<?php echo $row_show_comment['rate_star']; ?>"><?php echo ($i+1); ?></option> <?php }else{  ?>
+                            <option value="1"><?php echo ($i+1); ?></option>
+                          <?php }} ?>
                         </select>
-                        <p>By<a href=""> Alena Studio</a> - November 25, 2017</p>
+                        <p> <a href=""> 
+                          <?php $sql_user="SELECT *FROM users WHERE id=".$iduser;
+                                $kq_user=mysqli_query($con, $sql_user);
+                                while($row_user=mysqli_fetch_array($kq_user)){
+                                  echo $row_user['fullname'];
+                                }
+                        ?></a> - <?php echo $row_show_comment['created_time']; ?></p>
                       </header>
-                      <p>Soufflé danish gummi bears tart. Pie wafer icing. Gummies jelly beans powder. Chocolate bar pudding macaroon candy canes chocolate apple pie chocolate cake. Sweet caramels sesame snaps halvah bear claw wafer. Sweet roll soufflé muffin topping muffin brownie. Tart bear claw cake tiramisu chocolate bar gummies dragée lemon drops brownie.</p>
+                      <p><?php echo $row_show_comment['note']; ?></p>
                     </div>
-                  </div>
-                  <form class="ps-product__review" action="_action" method="post">
-                    <h4>ADD YOUR REVIEW</h4>
+                  </div><?php }?>
+                  <form class="ps-product__review" action="thembinhluan.php" method="post">
+                    <h4>THÊM ĐÁNH GIÁ CỦA BẠN</h4> <br>
                     <div class="row">
                           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                            
                             <div class="form-group">
-                              <label>Name:<span>*</span></label>
-                              <input class="form-control" type="text" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label>Email:<span>*</span></label>
-                              <input class="form-control" type="email" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label>Your rating<span></span></label>
-                              <select class="ps-rating">
+                              <label>Đánh giá sao<span></span></label>
+                              <select class="ps-rating" name="rating_star">
                                 <option value="1">1</option>
-                                <option value="1">2</option>
-                                <option value="1">3</option>
-                                <option value="1">4</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                                 <option value="5">5</option>
                               </select>
                             </div>
                           </div>
+                            <input type="hidden" name="product_id" value="<?php echo $_GET['idsp']; ?>">
+                            <input type="hidden" name="user_id" value="<?php if(isset($_COOKIE['idu'])){ echo $_COOKIE['idu']; }else{
+                              echo 'NULL';
+                            } ?>">
                           <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
                             <div class="form-group">
-                              <label>Your Review:</label>
-                              <textarea class="form-control" rows="6"></textarea>
+                              <label>Đánh giá sản phẩm:</label>
+                              <textarea class="form-control" rows="6" name="note_rate"></textarea>
                             </div>
+                            
                             <div class="form-group">
-                              <button class="ps-btn ps-btn--sm">Submit<i class="ps-icon-next"></i></button>
+                              <input class="ps-btn ps-btn--sm" type="submit" value="Gửi đánh giá" name="guidanhgia">
                             </div>
                           </div>
                     </div>
                   </form>
                 </div>
-                <div class="tab-pane" role="tabpanel" id="tab_03">
-                  <p>Add your tag <span> *</span></p>
-                  <form class="ps-product__tags" action="_action" method="post">
-                    <div class="form-group">
-                      <input class="form-control" type="text" placeholder="">
-                      <button class="ps-btn ps-btn--sm">Add Tags</button>
-                    </div>
-                  </form>
-                </div>
-                <div class="tab-pane" role="tabpanel" id="tab_04">
-                  <div class="form-group">
-                    <textarea class="form-control" rows="6" placeholder="Enter your addition here..."></textarea>
-                  </div>
-                  <div class="form-group">
-                    <button class="ps-btn" type="button">Submit</button>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div></form>
+      </div>
       <div class="ps-section ps-section--top-sales ps-owl-root pt-40 pb-80">
         <div class="ps-container">
           <div class="ps-section__header mb-50">
@@ -270,10 +261,10 @@
                       <div class="ps-shoe__variant normal"><img src="images/shoe/2.jpg" alt=""><img src="images/shoe/3.jpg" alt=""><img src="images/shoe/4.jpg" alt=""><img src="images/shoe/5.jpg" alt=""></div>
                       <select class="ps-rating ps-shoe__rating">
                         <option value="1">1</option>
-                        <option value="1">2</option>
-                        <option value="1">3</option>
-                        <option value="1">4</option>
-                        <option value="2">5</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                       </select>
                     </div>
                     <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
@@ -293,10 +284,10 @@
                       <div class="ps-shoe__variant normal"><img src="images/shoe/2.jpg" alt=""><img src="images/shoe/3.jpg" alt=""><img src="images/shoe/4.jpg" alt=""><img src="images/shoe/5.jpg" alt=""></div>
                       <select class="ps-rating ps-shoe__rating">
                         <option value="1">1</option>
-                        <option value="1">2</option>
-                        <option value="1">3</option>
-                        <option value="1">4</option>
-                        <option value="2">5</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                       </select>
                     </div>
                     <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>

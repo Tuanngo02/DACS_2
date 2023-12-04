@@ -129,6 +129,7 @@ mysqli_close($con);
               <div class="ps-shoe__content">
                 <div class="ps-shoe__variants">
                   <div class="ps-shoe__variant normal">
+                    <img src="../<?= $row['image']?>" alt="">
                     <?php
                     $sqlimg="SELECT*FROM image_library WHERE product_id=".$idsp;
                     $kqimg=mysqli_query($con,$sqlimg); 
@@ -137,12 +138,12 @@ mysqli_close($con);
                     <img src="../<?= $row_img['path'] ?>" alt="">
                     <?php endwhile ?>
                   </div>
-                  <select class="ps-rating ps-shoe__rating">
+                  <select class="ps-rating ps-shoe__rating" >
                     <option value="1">1</option>
-                    <option value="1">2</option>
-                    <option value="1">3</option>
-                    <option value="1">4</option>
-                    <option value="2">5</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                   </select>
                 </div>
                 <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
