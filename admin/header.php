@@ -12,6 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="../css1/admin_style.css" >
         <script src="../resources/ckeditor/ckeditor.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <!-- <link rel="stylesheet" href="light.css"> -->
     </head>
     <style>
 #customers {
@@ -63,12 +64,13 @@ and open the template in the editor.
                         <div class="menu-heading">Admin Menu</div>
                         <div class="menu-items">
                             <ul>
-                                <li><a href="#">Cấu hình</a></li>
+                                <li><a href="home.php">Tổng quan</a></li>
                                 <li><a href="menu_listing.php">Danh mục</a></li>
                                 <li><a href="#">Tin tức</a></li>
                                 <li><a href="product_listing.php">Sản phẩm</a></li>
                                 <li><a href="order_listing.php">Đơn hàng</a></li>
                                 <li><a href="member_listing.php">Thành viên</a></li>
+                                <li><a href="comment_listing.php">Bình luận</a></li>
                             </ul>
                         </div>
                     </div>

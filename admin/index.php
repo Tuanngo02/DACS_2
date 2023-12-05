@@ -6,9 +6,10 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Bài 12: Hướng dẫn tạo trang quản trị (admin): quản lý sản phẩm - Phần 1</title>
+        <title>TRANG QUẢN TRỊ</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="light.css">
         <style>
             .box-content{
                 margin: 0 auto;
@@ -53,27 +54,59 @@ and open the template in the editor.
             ?>
         <?php } ?>
         <?php if (empty($_SESSION['current_user'])) { ?>
-            <div id="user_login" class="box-content">
-                <h1>Đăng nhập tài khoản</h1>
-                <form action="./index.php" method="Post" autocomplete="off">
-                    <label>Username</label></br>
-                    <input type="text" name="username" value="" /><br/>
-                    <label>Password</label></br>
-                    <input type="password" name="password" value="" /></br>
-                    <br>
-                    <input type="submit" value="Đăng nhập" />
-                </form>
-            </div>
+            <div class="container d-flex flex-column">
+				<div class="row h-100">
+					<div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
+						<div class="d-table-cell align-middle">
+
+							<div class="text-center mt-4">
+								<h1 class="h2">Chào mừng đến với TRANG QUẢN TRỊ!</h1>
+								<p class="lead">
+									Vui lòng đăng nhập để tiếp tục
+								</p>
+							</div>
+
+							<div class="card">
+								<div class="card-body">
+									<div class="m-sm-3">
+										
+                                        <form action="./index.php" method="Post" autocomplete="off">
+											<div class="mb-3">
+												<label class="form-label">Tên đăng nhập</label>
+												<input class="form-control form-control-lg" type="text" name="username" placeholder="Nhập tên đăng nhập">
+											</div>
+											<div class="mb-3">
+												<label class="form-label">Mật khẩu</label>
+												<input class="form-control form-control-lg" type="password" name="password" placeholder="Nhập mật khẩu">
+											</div>
+											<div>
+												<div class="form-check align-items-center">
+													<input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked="">
+													<label class="form-check-label text-small" for="customControlInline">Remember me</label>
+												</div>
+											</div>
+											<div class="d-grid gap-2 mt-3">
+												<input type="submit" value="Đăng nhập" class="btn btn-primary"></input>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
             <?php
         } else {
             $currentUser = $_SESSION['current_user'];
             ?>
-            <div id="login-notify" class="box-content">
+            <!-- <div id="login-notify" class="box-content">
                 Xin chào <?= $currentUser['fullname'] ?><br/>
                 <a href="./product_listing.php">Quản lý sản phẩm</a><br/>
                 <a href="./edit.php">Đổi mật khẩu</a><br/>
                 <a href="./logout.php">Đăng xuất</a>
-            </div>
+            </div> -->
+            <?php header('Location: home.php'); ?>
         <?php } ?>
     </body>
 </html>

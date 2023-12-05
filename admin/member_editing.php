@@ -84,7 +84,7 @@ if (!empty($_SESSION['current_user'])) {
                             $kq1 = mysqli_query($con, "SELECT * FROM `role`  WHERE `id` = " . (!empty($currentMenu) ? $currentMenu['role_id'] : ""));
                             while($row1 = mysqli_fetch_array($kq1)){?>
                             <label>Quyền hiện tại: </label>
-                               <input type="text" name="address" value="<?= $row1['name']?>" />
+                               <input type="text" name="" value="<?= $row1['name']?>" />
                                <?php
                            }
                         }?>
