@@ -179,6 +179,7 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
                 $total=0;
                 for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
                   $idcart=$i;
+                  $_SESSION['a']=$_SESSION['giohang'][$i][2];
                   $total+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]);
                   if($_SESSION['giohang'][$i][0]!=NULL && $_SESSION['giohang'][$i][1]!=NULL && $_SESSION['giohang'][$i][2]!=NULL && $_SESSION['giohang'][$i][3]!=NULL && $_SESSION['giohang'][$i][4]!=NULL && $_SESSION['giohang'][$i][5]!=NULL){
                 ?>
@@ -205,7 +206,8 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
                 <input type="hidden" name="total" value="<?php echo $total; ?>">
               </div>
               <div class="ps-cart__total">
-                <h3>Tổng tiền: <span> <?php echo $total; ?> VND</span></h3><input type="submit" name="thanhtoan" class="ps-btn" href="checkout.php" value="Thanh toán sản phẩm">
+                <h3>Tổng tiền: <span> <?php echo $total; ?> VND</span></h3>
+                <input type="submit" name="thanhtoan" class="ps-btn" href="checkout.php" value="Thanh toán sản phẩm">
               </div>
             </div>
           </div>
