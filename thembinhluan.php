@@ -29,6 +29,6 @@ window.location="login.php";
     $sql_comment="INSERT INTO comment(user_id,product_id,note,created_time,last_updated,rate_star) 
     values($user_id,$product_id,'$note_rate','$date','$date',$rating)";
     $kq_comment=mysqli_query($con,$sql_comment);
-    header("location: product-deatail.php?idsp=$product_id");
+    header("location: product-detail.php?idsp=$product_id#tab_01");
   }}
 ?>

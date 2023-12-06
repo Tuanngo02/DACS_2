@@ -116,17 +116,20 @@
                   $count=0;
                   $stars=0;
                   while($row_show_comment_count=mysqli_fetch_array($kq_show_comment_count)){$count++; $stars+=$row_show_comment_count['rate_star'];}
-                  $stars_average=($stars/$count);
+                  if($count==0){
+                    $stars_average=0;
+                  }else{
+                  $stars_average=($stars/$count);}
                   ?>
                 <div class="ps-product__rating" >
-                <i><b style="size= 20px;"> <?php echo round($stars_average, 1); ?>*</b></i>
+                <i><b style="size= 20px;"> <?php if($stars_average==0){echo "Chưa có đánh giá";} else{echo round($stars_average, 1); }?>*</b></i>
                   <select class="ps-rating" >
                   <?php for($i=0;$i<5;$i++){ if(($i+1)<=round($stars_average)){?>
                           <option value="<?php echo round($stars_average) ?>"><?php echo ($i+1); ?></option> <?php }else{  ?>
                             <option value="1"><?php echo ($i+1); ?></option>
                           <?php }} ?>
                   </select> 
-                  <a href="#review">(Read all <?php echo $count; ?> reviews)</a>
+                  <a href="#review">(Đọc tất cả <?php echo $count; ?> đánh giá)</a>
                 </div>
 
                 <?php 
@@ -135,7 +138,16 @@
                 while($row_product=mysqli_fetch_array($kq_product)){ $name_product=$row_product['name']; $price_product=$row_product['price'];
                  ?>
                 <h1><?php echo $row_product['name']; ?></h1>
-                <p class="ps-product__category"><a href="#"> Lều</a></p>
+                <p class="ps-product__category"><a href="#"> 
+                <?php 
+                $category_id=$row_product['category_id'];
+                  $sqlshowdm="SELECT*FROM category WHERE id=".$category_id;
+                  $kqshowdm=mysqli_query($con,$sqlshowdm);
+                  while($rowshowdm=mysqli_fetch_array($kqshowdm)){
+                    echo $rowshowdm['name'];
+                  }
+                   ?>
+                </a></p>
                 <h3 class="ps-product__price"><?php echo $row_product['price'].' VND/Ngày';  ?> <del> <!--£ 330 --> </del></h3>
                 <div class="ps-product__block ps-product__quickview">
                   <h4>MÔ TẢ</h4>
@@ -143,6 +155,8 @@
                 </div>
                 <div class="ps-product__block ps-product__size">
                   <h4>SỐ NGÀY THUÊ ㅤㅤㅤㅤㅤㅤSỐ LƯỢNG</h4> 
+                  <?php if($category_id==9 || $category_id==10) { echo '<select class="ps-select selectpicker" name="songaythue">
+                    <option value="1">Không thể thuê</option></select>';}else{?>
                   <select class="ps-select selectpicker" name="songaythue">
                     <option value="1">1 ngày</option>
                     <option value="2">2 ngày</option>
@@ -151,7 +165,7 @@
                     <option value="5">5 ngày</option>
                     <option value="6">6 ngày</option>
                     <option value="7">7 ngày</option>
-                  </select>
+                  </select> <?php  }?>
                   <div class="form-group" >
                     <input class="form-control" type="number" name="soluong" value="1" min="1" max="10" style="border-radius:2px;">
                   </div>
@@ -163,22 +177,20 @@
                 <input type="hidden" name="gia" value="<?php echo $price_product; ?>"> 
                 <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng">
                   <!-- <a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a> -->
-                  <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
+                  <div class="ps-product__actions"><a class="mr-10" href=""><i class="ps-icon-heart"></i></a><a href=""><i class="ps-icon-share"></i></a></div>
                 </div>
               </div></form>
               <div class="clearfix"></div>
               <div class="ps-product__content mt-50">
                 <ul class="tab-list" role="tablist">
-                  <li class="active"><a href="#tab_01" aria-controls="tab_01" role="tab" data-toggle="tab">Tổng quan</a></li>
-                  <li><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab" id="review">Đánh giá</a></li>
+                  
+                  <li class="active"><a href="#tab_02" aria-controls="tab_02" role="tab" data-toggle="tab" id="review">ĐÁNH GIÁ</a></li>
+                  <li><a href="#tab_03" aria-controls="tab_03" role="tab" data-toggle="tab">TỔNG QUAN</a></li>
                 </ul>
               </div>
               <div class="tab-content mb-60">
-                <div class="tab-pane active" role="tabpanel" id="tab_01">
-                  <p>Caramels tootsie roll carrot cake sugar plum. Sweet roll jelly bear claw liquorice. Gingerbread lollipop dragée cake. Pie topping jelly-o. Fruitcake dragée candy canes tootsie roll. Pastry jelly-o cupcake. Bonbon brownie soufflé muffin.</p>
-                  <p>Sweet roll soufflé oat cake apple pie croissant. Pie gummi bears jujubes cake lemon drops gummi bears croissant macaroon pie. Fruitcake tootsie roll chocolate cake Carrot cake cake bear claw jujubes topping cake apple pie. Jujubes gummi bears soufflé candy canes topping gummi bears cake soufflé cake. Cotton candy soufflé sugar plum pastry sweet roll..</p>
-                </div>
-                <div class="tab-pane" role="tabpanel" id="tab_02">
+                
+                <div class="tab-pane active" role="tabpanel" id="tab_02">
                   <?php 
                   $sql_show_comment="SELECT* FROM comment WHERE product_id=".$_GET['idsp'];
                   $kq_show_comment=mysqli_query($con,$sql_show_comment); 
@@ -188,7 +200,7 @@
                     $iduser=$row_show_comment['user_id'];
                    ?>
                   <div class="ps-review">
-                    <div class="ps-review__thumbnail"><img src="images/user/1.jpg" alt=""></div>
+                    <div class="ps-review__thumbnail"><img src="images/user/user.png" alt="" style="width: 150px;"></div>
                     <div class="ps-review__content">
                       <header>
                         <select class="ps-rating">
@@ -240,6 +252,10 @@
                           </div>
                     </div>
                   </form>
+                </div>
+                <div class="tab-pane" role="tabpanel" id="tab_03">
+                <p>Caramels tootsie roll carrot cake sugar plum. Sweet roll jelly bear claw liquorice. Gingerbread lollipop dragée cake. Pie topping jelly-o. Fruitcake dragée candy canes tootsie roll. Pastry jelly-o cupcake. Bonbon brownie soufflé muffin.</p>
+                  <p>Sweet roll soufflé oat cake apple pie croissant. Pie gummi bears jujubes cake lemon drops gummi bears croissant macaroon pie. Fruitcake tootsie roll chocolate cake Carrot cake cake bear claw jujubes topping cake apple pie. Jujubes gummi bears soufflé candy canes topping gummi bears cake soufflé cake. Cotton candy soufflé sugar plum pastry sweet roll..</p>
                 </div>
                 </div>
               </div>
@@ -415,103 +431,7 @@
           </div>
         </div>
       </div>
-      <div class="ps-footer bg--cover" data-background="images/background/parallax.jpg">
-        <div class="ps-footer__content">
-          <div class="ps-container">
-            <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
-                    <aside class="ps-widget--footer ps-widget--info">
-                      <header><a class="ps-logo" href="index.html"><img src="images/logo-white.png" alt=""></a>
-                        <h3 class="ps-widget__title">Address Office 1</h3>
-                      </header>
-                      <footer>
-                        <p><strong>460 West 34th Street, 15th floor, New York</strong></p>
-                        <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
-                        <p>Phone: +323 32434 5334</p>
-                        <p>Fax: ++323 32434 5333</p>
-                      </footer>
-                    </aside>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
-                    <aside class="ps-widget--footer ps-widget--info second">
-                      <header>
-                        <h3 class="ps-widget__title">Address Office 2</h3>
-                      </header>
-                      <footer>
-                        <p><strong>PO Box 16122 Collins  Victoria 3000 Australia</strong></p>
-                        <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
-                        <p>Phone: +323 32434 5334</p>
-                        <p>Fax: ++323 32434 5333</p>
-                      </footer>
-                    </aside>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
-                    <aside class="ps-widget--footer ps-widget--link">
-                      <header>
-                        <h3 class="ps-widget__title">Find Our store</h3>
-                      </header>
-                      <footer>
-                        <ul class="ps-list--link">
-                          <li><a href="#">Coupon Code</a></li>
-                          <li><a href="#">SignUp For Email</a></li>
-                          <li><a href="#">Site Feedback</a></li>
-                          <li><a href="#">Careers</a></li>
-                        </ul>
-                      </footer>
-                    </aside>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
-                    <aside class="ps-widget--footer ps-widget--link">
-                      <header>
-                        <h3 class="ps-widget__title">Get Help</h3>
-                      </header>
-                      <footer>
-                        <ul class="ps-list--line">
-                          <li><a href="#">Order Status</a></li>
-                          <li><a href="#">Shipping and Delivery</a></li>
-                          <li><a href="#">Returns</a></li>
-                          <li><a href="#">Payment Options</a></li>
-                          <li><a href="#">Contact Us</a></li>
-                        </ul>
-                      </footer>
-                    </aside>
-                  </div>
-                  <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
-                    <aside class="ps-widget--footer ps-widget--link">
-                      <header>
-                        <h3 class="ps-widget__title">Products</h3>
-                      </header>
-                      <footer>
-                        <ul class="ps-list--line">
-                          <li><a href="#">Shoes</a></li>
-                          <li><a href="#">Clothing</a></li>
-                          <li><a href="#">Accessries</a></li>
-                          <li><a href="#">Football Boots</a></li>
-                        </ul>
-                      </footer>
-                    </aside>
-                  </div>
-            </div>
-          </div>
-        </div>
-        <div class="ps-footer__copyright">
-          <div class="ps-container">
-            <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                    <p>&copy; <a href="#">SKYTHEMES</a>, Inc. All rights Resevered. Design by <a href="#"> Alena Studio</a></p>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                    <ul class="ps-social">
-                      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                      <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    </ul>
-                  </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php include 'footer.php' ?>
     </main>
     <!-- JS Library-->
     <script type="text/javascript" src="plugins/jquery/dist/jquery.min.js"></script>
