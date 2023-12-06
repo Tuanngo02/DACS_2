@@ -60,7 +60,20 @@ confirmButtonText: "Đăng nhập!"
 window.location="login.php";
 });
 </script><?php
+  }?>
+<?php 
+    include 'connect_db.php';
+    $id = $_SESSION['id_sp'];
+    $result_1 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $id);
+    $product_1 = mysqli_fetch_assoc($result_1);
+    for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+    $ton_kho = (int)$product_1['quantity'] - (int)$_SESSION['giohang'][$i][2];
+      $result = mysqli_query($con, "UPDATE `products` SET `quantity` = '" . $ton_kho . "'WHERE `Products`.`id` = " . $id );
   }
+
+?>
+  
+<?php
 }
  ?>
   <body class="ps-loading">

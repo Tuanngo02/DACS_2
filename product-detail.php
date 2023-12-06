@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include 'connect_db.php';
+$_SESSION['id_sp'] =$_GET['idsp']; 
+?>
 <!DOCTYPE html>
 <!--[if IE 7]><html class="ie ie7"><![endif]-->
 <!--[if IE 8]><html class="ie ie8"><![endif]-->
@@ -153,7 +156,11 @@
                     <option value="7">7 ngày</option>
                   </select>
                   <div class="form-group" >
-                    <input class="form-control" type="number" name="soluong" value="1" min="1" max="10" style="border-radius:2px;">
+                    <?php
+                    include 'connect_db.php';
+                     $result_2 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $_GET['idsp']);
+                     $product_2 = mysqli_fetch_assoc($result_2);?>
+                    <input class="form-control" type="number" name="soluong" value="0" min="1" max="<?=$product_2['quantity'] ?>" style="border-radius:2px;">
                   </div>
                 </div>
                 <!-- Lấy thông tin từ sản phẩm -->
@@ -161,9 +168,21 @@
                 <input type="hidden" name="hinhanhsp" value="<?php echo $image_product; ?>">
                 <input type="hidden" name="tensp" value="<?php echo $name_product; ?>"> 
                 <input type="hidden" name="gia" value="<?php echo $price_product; ?>"> 
-                <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng">
+
+                <div class="ps-product__shopping">
+                  <!-- CHECK TỒN KHO -->
+                  <?php
+                  include 'connect_db.php';
+                   $result_1 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $_GET['idsp']);
+                   $product_1 = mysqli_fetch_assoc($result_1);
+                  //  $product_1 = $result_1->fetch_assoc();
+                  if($product_1['quantity'] > 0){?>
+                  <input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng">
+                  <?php } else { ?>
+                    <input  class="ps-btn mb-10" type="" name="" value="Hết hàng" style="background-color:red;cursor:pointer" readonly>
+                    <?php } ?>               
+                  
                   <!-- <a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a> -->
-                  <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
                 </div>
               </div></form>
               <div class="clearfix"></div>

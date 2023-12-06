@@ -42,9 +42,9 @@ if (!empty($_SESSION['current_user'])) {
                     }
                     if (!isset($error)) {
                         if ($_GET['action'] == 'edit' && !empty($_GET['id'])) { //Cập nhật lại sản phẩm
-                            $result = mysqli_query($con, "UPDATE `Products` SET `name` = '" . $_POST['name'] . "',`image` =  '" . $image . "',`category_id` =  '" . $_POST['iddanhmuc'] . "', `price` = " . str_replace('.', '', $_POST['price']) . ", `content` = '" . $_POST['content'] . "', `last_updated` = " . time() . " WHERE `Products`.`id` = " . $_GET['id']);
+                            $result = mysqli_query($con, "UPDATE `Products` SET `name` = '" . $_POST['name'] . "',`quantity` = '" . $_POST['quantity'] . "',`image` =  '" . $image . "',`category_id` =  '" . $_POST['iddanhmuc'] . "', `price` = " . str_replace('.', '', $_POST['price']) . ", `content` = '" . $_POST['content'] . "', `last_updated` = " . time() . " WHERE `Products`.`id` = " . $_GET['id']);
                         } else { //Thêm sản phẩm
-                            $result = mysqli_query($con, "INSERT INTO `Products` (`id`, `name`, `category_id`,`image`, `price`, `content`, `created_time`, `last_updated`) VALUES (NULL, '" . $_POST['name'] . "','" . $_POST['iddanhmuc'] . "','" . $image . "', " . str_replace('.', '', $_POST['price']) . ", '" . $_POST['content'] . "', " . time() . ", " . time() . ");");
+                            $result = mysqli_query($con, "INSERT INTO `Products` (`id`, `name`,`quantity`, `category_id`,`image`, `price`, `content`, `created_time`, `last_updated`) VALUES (NULL, '" . $_POST['name'] . "','" . $_POST['quantity'] . "','" . $_POST['iddanhmuc'] . "','" . $image . "', " . str_replace('.', '', $_POST['price']) . ", '" . $_POST['content'] . "', " . time() . ", " . time() . ");");
                         }
                         if (!$result) { //Nếu có lỗi xảy ra
                             $error = "Có lỗi xảy ra trong quá trình thực hiện.";
@@ -110,6 +110,11 @@ if (!empty($_SESSION['current_user'])) {
                     <div class="wrap-field">
                         <label>Giá sản phẩm: </label>
                         <input type="text" name="price" value="<?= (!empty($product) ? number_format($product['price'], 0, ",", ".") : "") ?>" />
+                        <div class="clear-both"></div>
+                    </div>
+                    <div class="wrap-field">
+                        <label>Tồn kho: </label>
+                        <input type="text" name="quantity" value="<?= (!empty($product) ? $product['quantity'] : "") ?>" />
                         <div class="clear-both"></div>
                     </div>
                     <div class="wrap-field">
