@@ -182,10 +182,10 @@ mysqli_close($con);
               <ul class="ps-list--checked">
                 <!-- xứ lý danh mục bên trái màn hình -->
                 <?php if(!isset($_GET['iddm'])){?>
-                    <li class="current"><a href="product-listing.php">Tất cả</a>
+                    <li class="current"><a href="product-listing.php?iddm=0">Tất cả</a>
                           </li>
                          <?php }else{?>
-                          <li class=""><a href="product-listing.php">Tất cả</a>
+                          <li class=""><a href="product-listing.php?iddm=0">Tất cả</a>
                           </li>
                           <?php }?>
               <?php
