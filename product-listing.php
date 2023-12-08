@@ -143,12 +143,26 @@ mysqli_close($con);
                     <img src="../<?= $row_img['path'] ?>" alt="">
                     <?php endwhile ?>
                   </div>
+
+                  <?php 
+                  $sql_show_comment_count="SELECT* FROM comment WHERE product_id=".$idsp;
+                  $kq_show_comment_count=mysqli_query($con,$sql_show_comment_count);
+                  $count=0;
+                  $stars=0;
+                  while($row_show_comment_count=mysqli_fetch_array($kq_show_comment_count)){$count++; $stars+=$row_show_comment_count['rate_star'];}
+                  if($count==0){
+                    $stars_average=0;
+                  }else{
+                  $stars_average=($stars/$count);}
+                  if($stars_average==0){echo "<b>Chưa có đánh giá</b>";}else{
+                  ?>
                   <select class="ps-rating ps-shoe__rating" >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                  <?php 
+                          
+                          for($i=0;$i<5;$i++){ if(($i+1)<=round($stars_average)){?>
+                          <option value="<?php echo round($stars_average) ?>"><?php echo ($i+1); ?></option> <?php }else{  ?>
+                            <option value="1"><?php echo ($i+1); ?></option>
+                          <?php }}} ?>
                   </select>
                 </div>
                 <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detail.php?idsp=<?php echo $idsp; ?>"><?php echo $row['name']; ?></a>
@@ -229,7 +243,7 @@ mysqli_close($con);
           
           <aside class="ps-widget--sidebar ps-widget--category">
             <div class="ps-widget__header">
-              <h3>Width</h3>
+              <h3></h3>
             </div>
             <!-- <div class="ps-widget__content">
               <ul class="ps-list--checked">
