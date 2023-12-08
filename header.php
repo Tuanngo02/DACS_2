@@ -50,7 +50,7 @@
                   <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">Địa điểm cắm trại</a>
                     
                   </li>
-                  <li class="menu-item"><a href="product-listing.php">Sản phẩm</a></li>
+                  <li class="menu-item"><a href="product-listing.php?iddm=0">Sản phẩm</a></li>
                   <li class="menu-item menu-item-has-children dropdown"><a href="#">Danh mục</a>
                   <ul class="sub-menu">
                     <?php
