@@ -65,7 +65,7 @@
                           }
                           ?>
                   </li></ul>
-                  <li class="menu-item menu-item-has-children dropdown"><a href="#">Liên hệ</a>
+                  <li class="menu-item menu-item-has-children dropdown"><a href="contact-us.php">Liên hệ</a>
                         
                   </li>
                 </ul>
