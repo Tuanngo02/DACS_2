@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include 'connect_db.php';
+$_SESSION['id_sp'] =$_GET['idsp']; 
+?>
 <!DOCTYPE html>
 <!--[if IE 7]><html class="ie ie7"><![endif]-->
 <!--[if IE 8]><html class="ie ie8"><![endif]-->
@@ -153,6 +156,14 @@
                   <h4>MÔ TẢ</h4>
                   <p><?php echo $row_product['content'];} ?></p>
                 </div>
+                <div class="ps-product__block ps-product__quickview">
+                  <h4>TỒN KHO</h4>
+                  <?php 
+                include 'connect_db.php';
+                $sql_product_2= mysqli_query($con, "SELECT*FROM products WHERE id=".$_GET['idsp']);
+                $product_3 = mysqli_fetch_assoc($sql_product_2);?>
+                <p style="color:red"><?= $product_3['quantity']; ?></p>
+                </div>
                 <div class="ps-product__block ps-product__size">
                   <h4>SỐ NGÀY THUÊ ㅤㅤㅤㅤㅤㅤSỐ LƯỢNG</h4> 
                   <?php if($category_id==9 || $category_id==10) { echo '<select class="ps-select selectpicker" name="songaythue">
@@ -167,7 +178,11 @@
                     <option value="7">7 ngày</option>
                   </select> <?php  }?>
                   <div class="form-group" >
-                    <input class="form-control" type="number" name="soluong" value="1" min="1" max="10" style="border-radius:2px;">
+                  <?php
+                    include 'connect_db.php';
+                     $result_2 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $_GET['idsp']);
+                     $product_2 = mysqli_fetch_assoc($result_2);?>
+                    <input class="form-control" type="number" name="soluong" value="0" min="1" max="<?=$product_2['quantity'] ?>" style="border-radius:2px;">
                   </div>
                 </div>
                 <!-- Lấy thông tin từ sản phẩm -->
@@ -175,8 +190,20 @@
                 <input type="hidden" name="hinhanhsp" value="<?php echo $image_product; ?>">
                 <input type="hidden" name="tensp" value="<?php echo $name_product; ?>"> 
                 <input type="hidden" name="gia" value="<?php echo $price_product; ?>"> 
-                <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng">
+                <!-- <div class="ps-product__shopping"><input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng"> -->
                   <!-- <a class="ps-btn mb-10" href="cart.php">Thêm vào giỏ hàng<i class="ps-icon-next"></i></a> -->
+                  <div class="ps-product__shopping">
+                  <!-- CHECK TỒN KHO -->
+                  <?php
+                  include 'connect_db.php';
+                   $result_1 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $_GET['idsp']);
+                   $product_1 = mysqli_fetch_assoc($result_1);
+                  //  $product_1 = $result_1->fetch_assoc();
+                  if($product_1['quantity'] > 0){?>
+                  <input  class="ps-btn mb-10" type="submit" name="addcart" value="Thêm vào giỏ hàng">
+                  <?php } else { ?>
+                    <input  class="ps-btn mb-10" type="" name="" value="Hết hàng" style="background-color:red;cursor:pointer" readonly>
+                    <?php } ?>           
                   <div class="ps-product__actions"><a class="mr-10" href=""><i class="ps-icon-heart"></i></a><a href=""><i class="ps-icon-share"></i></a></div>
                 </div>
               </div></form>

@@ -124,6 +124,92 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6 col-xl-3 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<h5 class="card-title mb-0 mt-2">TỔNG DOANH THU</h5>
+								</div>
+								<div class="card-body my-0 pt-0">
+									<div class="row d-flex align-items-center mb-3">
+                                    <?php 
+                                    include '../connect_db.php';
+                                    $result = mysqli_query($con, "SELECT SUM(oder_details.total_money) AS tong_tien FROM oder_details
+                                    INNER JOIN oders ON oder_details.order_id = oders.id
+                                    WHERE oders.status = 'Đã thanh toán'");
+                                    $currentMenu = $result->fetch_assoc();
+                                ?>
+										<div class="col-8">
+											<h3 class="d-flex align-items-center mb-0 fw-light">
+                                            <?= $currentMenu['tong_tien'] ?>
+											</h3>
+										</div>
+										<div class="col-4 text-end">
+											<span class="text-muted">VND</span>
+										</div>
+									</div>
+
+									<div class="progress progress-sm shadow-sm mb-1">
+										<div class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+        <div class="col-lg-6 col-xl-3 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<h5 class="card-title mb-0 mt-2">ĐƠN HÀNG ĐÃ THANH TOÁN</h5>
+								</div>
+								<div class="card-body my-0 pt-0">
+									<div class="row d-flex align-items-center mb-3">
+                                    <?php 
+                            include '../connect_db.php';
+                            $result = mysqli_query($con, "SELECT COUNT(*) AS total FROM oders WHERE status = 'Đã thanh toán'");
+                            $currentMenu = $result->fetch_assoc();
+                            ?>
+										<div class="col-8">
+											<h3 class="d-flex align-items-center mb-0 fw-light">
+                                            <?= $currentMenu['total'] ?>
+											</h3>
+										</div>
+										<div class="col-4 text-end">
+											<span class="text-muted">Đơn</span>
+										</div>
+									</div>
+
+									<div class="progress progress-sm shadow-sm mb-1">
+										<div class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+        <div class="col-lg-6 col-xl-3 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<h5 class="card-title mb-0 mt-2">ĐƠN HÀNG CHƯA THANH TOÁN</h5>
+								</div>
+								<div class="card-body my-0 pt-0">
+									<div class="row d-flex align-items-center mb-3">
+                                    <?php 
+                            include '../connect_db.php';
+                            $result = mysqli_query($con, "SELECT COUNT(*) AS total FROM oders WHERE status = 'Chưa thanh toán'");
+                            $currentMenu = $result->fetch_assoc();
+                            ?>
+										<div class="col-8">
+											<h3 class="d-flex align-items-center mb-0 fw-light">
+                                            <?= $currentMenu['total'] ?>
+											</h3>
+										</div>
+										<div class="col-4 text-end">
+											<span class="text-muted">Đơn</span>
+										</div>
+									</div>
+
+									<div class="progress progress-sm shadow-sm mb-1">
+										<div class="progress-bar bg-primary" role="progressbar" style="width: 100%"></div>
+									</div>
+								</div>
+							</div>
+						</div>
         <div class="card">
 								<div class="card-header">
 									<h5 class="card-title mb-0">Trang web Cho Thuê Đồ Dã Ngoại </h5>
@@ -148,6 +234,5 @@
 							</div>
     </div>
    </div>
-   <?php include 'footer.php'; ?>
 </body>
 </html>

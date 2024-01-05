@@ -187,11 +187,9 @@ if(isset($_POST['addcart'])&& ($_POST['addcart'])){
                   <td><a class="ps-product__preview" href="product-detail.php?idsp=<?php  echo $_SESSION['giohang'][$i][5]; ?>"><img class="mr-15" style="width: 100px; height: 100px;" src="../<?php  echo $_SESSION['giohang'][$i][3];  ?>" alt=""> <?php echo $_SESSION['giohang'][$i][0].'(x'.$_SESSION['giohang'][$i][4].' ngày)'; ?></a></td>
                   <td><?php echo $_SESSION['giohang'][$i][1]; ?></td>
                   <td>
-                    <div class="form-group--number">
-                      
-                      <input class="form-control" type="number"   name="soluongck" value="<?php echo $_SESSION['giohang'][$i][2]; ?>" readonly>
-                     
-                    </div>
+                  <div class="form-group--number" >
+                    <input class="form-control" type="number" name="soluongck" value="<?php echo $_SESSION['giohang'][$i][2]; ?>" min="1" max="10" style="border-radius:2px;">
+                  </div>
                   </td>
                   <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND'; ?></td>
                   <td>

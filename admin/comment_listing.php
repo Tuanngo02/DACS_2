@@ -43,7 +43,7 @@ if (!empty($_SESSION['current_user'])) {
     $result = mysqli_query($con, "SELECT * FROM users 
     INNER JOIN comment ON users.id = comment.user_id
     INNER JOIN products ON comment.product_id = products.id
-    WHERE comment.user_id = " . $currentMenu['user_id'] . " AND products.id = " . $currentMenu['product_id']);
+    WHERE comment.user_id = " . $currentMenu['user_id'] . " OR products.id = " . $currentMenu['product_id']);
     mysqli_close($con);
     ?>
     <div class="main-content">

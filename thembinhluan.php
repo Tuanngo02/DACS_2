@@ -26,8 +26,8 @@ window.location="login.php";
     include 'connect_db.php';
     date_default_timezone_set('Asia/Ho_Chi_Minh');
     $date= date('Y-m-d H:i:s');
-    $sql_comment="INSERT INTO comment(user_id,product_id,note,created_time,last_updated,rate_star) 
-    values($user_id,$product_id,'$note_rate','$date','$date',$rating)";
+    $sql_comment="INSERT INTO comment(user_id,product_id,note,rate_star) 
+    values($user_id,$product_id,'$note_rate',$rating)";
     $kq_comment=mysqli_query($con,$sql_comment);
     header("location: product-detail.php?idsp=$product_id#tab_01");
   }}

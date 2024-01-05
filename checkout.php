@@ -62,14 +62,15 @@ window.location="login.php";
 </script><?php
   }?>
 <?php 
-  //   include 'connect_db.php';
-  //   $id = $_SESSION['id_sp'];
-  //   $result_1 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $id);
-  //   $product_1 = mysqli_fetch_assoc($result_1);
-  //   for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
-  //   $ton_kho = (int)$product_1['quantity'] - (int)$_SESSION['giohang'][$i][2];
-  //     $result = mysqli_query($con, "UPDATE `products` SET `quantity` = '" . $ton_kho . "'WHERE `Products`.`id` = " . $id );
-  // }
+    include 'connect_db.php';
+    $id = $_SESSION['id_sp'];
+    $soluongck=$_POST['soluongck'];
+    $result_1 = mysqli_query($con, "SELECT * FROM `products` WHERE `id` = " . $id);
+    $product_1 = mysqli_fetch_assoc($result_1);
+    for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+    $ton_kho = (int)$product_1['quantity'] - (int)$_POST['soluongck'];
+      $result = mysqli_query($con, "UPDATE `products` SET `quantity` = '" . $ton_kho . "'WHERE `Products`.`id` = " . $id );
+  }
 
 ?>
   
@@ -142,12 +143,14 @@ window.location="login.php";
                           <tbody>
 
                           <?php 
-                          $soluongck=$_POST['soluongck'];
-                          $totalck=$_POST['total'];
-                          
+                          // $totalck=$_POST['total'];
+                          $totalck=0;
                           for($i=0; $i< sizeof($_SESSION['giohang']);$i++){
+                            $_SESSION['giohang'][$i][2] = $soluongck;
+                            $totalck+=($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]);
                             if($_SESSION['giohang'][$i][0]!=NULL && $_SESSION['giohang'][$i][1]!=NULL && $_SESSION['giohang'][$i][2]!=NULL && $_SESSION['giohang'][$i][3]!=NULL && $_SESSION['giohang'][$i][4]!=NULL && $_SESSION['giohang'][$i][5]!=NULL){  ?>
                             <tr>
+                              <?php ?>
                               <td><?php echo $_SESSION['giohang'][$i][0].' (x'.$_SESSION['giohang'][$i][2].' )('.$_SESSION['giohang'][$i][4].' ngày)' ?></td>
                               <td><?php echo ($_SESSION['giohang'][$i][1]*$_SESSION['giohang'][$i][2]*$_SESSION['giohang'][$i][4]).' VND' ?></td>
                             </tr>
@@ -163,7 +166,7 @@ window.location="login.php";
                         <h3>Phương thức thanh toán</h3>
                         <div class="form-group cheque">
                           <div class="ps-radio">
-                            <input class="form-control" type="radio" id="rdo01" name="payment" value="Chưa Thanh Toán" checked>
+                            <input class="form-control" type="radio" id="rdo01" name="payment" value="Chưa thanh toán" checked>
                             <label for="rdo01">Thanh toán sau khi nhận hàng</label>
                           </div>
                         </div>

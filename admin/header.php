@@ -66,7 +66,6 @@ and open the template in the editor.
                             <ul>
                                 <li><a href="home.php">Tổng quan</a></li>
                                 <li><a href="menu_listing.php">Danh mục</a></li>
-                                <li><a href="#">Tin tức</a></li>
                                 <li><a href="product_listing.php">Sản phẩm</a></li>
                                 <li><a href="order_listing.php">Đơn hàng</a></li>
                                 <li><a href="member_listing.php">Thành viên</a></li>
